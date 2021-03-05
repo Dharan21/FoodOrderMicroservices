@@ -1,0 +1,32 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/Customers/GetAll",
+      "DownstreamScheme": "https",
+      "DownstreamHostandPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44399
+        }
+      ],
+      "UpstreamPathTemplate": "/Customer/GetAll",
+      "UpstreamHttpMethod": [ "GET" ],
+      "SwaggerKey": "customers"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:44317"
+  },
+  "SwaggerEndPoints": [
+    {
+      "Key": "customers",
+      "Config": [
+        {
+          "Name": "Customer Microservice",
+          "Version": "v1",
+          "Url": "https://localhost:44399/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ]
+}

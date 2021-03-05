@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+    <Folder Include="Managers\" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\CustomerServices.BusinessEntities\CustomerServices.BusinessEntities.csproj" />
+    <ProjectReference Include="..\CustomerServices.DataEntities\CustomerServices.DataEntities.csproj" />
+    <ProjectReference Include="..\CustomerServices.DL\CustomerServices.DL.csproj" />
+  </ItemGroup>
+
+
+</Project>
