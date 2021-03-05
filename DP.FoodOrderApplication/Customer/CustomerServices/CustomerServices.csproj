@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\CustomerServices.BL\CustomerServices.BL.csproj" />
     <ProjectReference Include="..\CustomerServices.BusinessEntities\CustomerServices.BusinessEntities.csproj" />
   </ItemGroup>

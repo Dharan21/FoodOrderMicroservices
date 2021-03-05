@@ -10,11 +10,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-    <Folder Include="Managers\" />
-  </ItemGroup>
-  
-  <ItemGroup>
     <ProjectReference Include="..\CustomerServices.BusinessEntities\CustomerServices.BusinessEntities.csproj" />
     <ProjectReference Include="..\CustomerServices.DataEntities\CustomerServices.DataEntities.csproj" />
     <ProjectReference Include="..\CustomerServices.DL\CustomerServices.DL.csproj" />

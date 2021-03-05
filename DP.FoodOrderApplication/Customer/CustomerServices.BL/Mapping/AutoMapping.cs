@@ -11,7 +11,7 @@ namespace CustomerServices.BL.Mapping
     {
         public static void Configure(IMapperConfigurationExpression cfg)
         {
-            cfg.CreateMap<Customer, CustomerResponseModel>();
+            cfg.CreateMap<Customer, CustomerResponseModel>().ReverseMap();
         }
     }
 }
