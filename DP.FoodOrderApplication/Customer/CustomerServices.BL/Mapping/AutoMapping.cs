@@ -12,6 +12,16 @@ namespace CustomerServices.BL.Mapping
         public static void Configure(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<Customer, CustomerResponseModel>().ReverseMap();
+
+            cfg.CreateMap<Restaurant, RestaurantResponseModel>();
+
+            cfg.CreateMap<RestaurantResponseModel, Restaurant>()
+                .ForMember(x => x.Id, cfg => cfg.Ignore());
+
+            cfg.CreateMap<MenuItem, MenuItemResponseModel>();
+
+            cfg.CreateMap<MenuItemResponseModel, MenuItem>()
+                .ForMember(x => x.Id, cfg => cfg.Ignore());
         }
     }
 }
