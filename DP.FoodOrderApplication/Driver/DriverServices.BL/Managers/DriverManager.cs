@@ -22,26 +22,26 @@ namespace DriverServices.BL.Managers
         }
         public async Task<List<DriverResponseModel>> GetAll()
         {
-            List<Driver> customersEntity = await this._driverRepository.GetAll();
-            return this._mapper.Map<List<Driver>, List<DriverResponseModel>>(customersEntity);
+            List<Driver> driversEntity = await this._driverRepository.GetAll();
+            return this._mapper.Map<List<Driver>, List<DriverResponseModel>>(driversEntity);
         }
 
         public async Task<DriverResponseModel> Get(int id)
         {
-            Driver customerEntity = await this._driverRepository.GetById(id);
-            return this._mapper.Map<Driver, DriverResponseModel>(customerEntity);
+            Driver driverEntity = await this._driverRepository.GetById(id);
+            return this._mapper.Map<Driver, DriverResponseModel>(driverEntity);
         }
 
-        public async Task Add(DriverResponseModel customer)
+        public async Task Add(DriverResponseModel driver)
         {
-            Driver customerEntity = this._mapper.Map<DriverResponseModel, Driver>(customer);
-            await this._driverRepository.Create(customerEntity);
+            Driver driverEntity = this._mapper.Map<DriverResponseModel, Driver>(driver);
+            await this._driverRepository.Create(driverEntity);
         }
 
-        public async Task Update(DriverResponseModel customer)
+        public async Task Update(DriverResponseModel driver)
         {
-            Driver customerEntity = this._mapper.Map<DriverResponseModel, Driver>(customer);
-            await this._driverRepository.Update(customerEntity);
+            Driver driverEntity = this._mapper.Map<DriverResponseModel, Driver>(driver);
+            await this._driverRepository.Update(driverEntity);
         }
         public async Task Delete(int id)
         {

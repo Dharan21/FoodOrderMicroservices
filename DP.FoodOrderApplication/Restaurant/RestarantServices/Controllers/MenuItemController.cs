@@ -1,29 +1,29 @@
-﻿using DriverServices.BL.Interfaces;
-using DriverServices.BusinessEntities.ResponseModels;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RestaurantServices.BL.Interfaces;
+using RestaurantServices.BusinessEntities.ResponseModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DriverServices.Controllers
+namespace RestaurantServices.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DriversController : ControllerBase
+    public class MenuItemController : ControllerBase
     {
-        private readonly IDriverManager _driverManager;
-        public DriversController(IDriverManager driverManager)
+        private IMenuItemManager _menuItemManager;
+        public MenuItemController(IMenuItemManager menuItemManager)
         {
-            this._driverManager = driverManager;
+            this._menuItemManager = menuItemManager;
         }
 
         [HttpGet]
         [Route("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var response = await _driverManager.GetAll();
+            var response = await _menuItemManager.GetAll();
             return Ok(response);
         }
 
@@ -31,23 +31,23 @@ namespace DriverServices.Controllers
         [Route("Get/{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var response = await _driverManager.Get(id);
+            var response = await _menuItemManager.Get(id);
             return Ok(response);
         }
 
         [HttpPost]
         [Route("Add")]
-        public async Task<IActionResult> Add(DriverResponseModel driver)
+        public async Task<IActionResult> Add(MenuItemResponseModel menuItem)
         {
-            await _driverManager.Add(driver);
+            await _menuItemManager.Add(menuItem);
             return Ok();
         }
 
         [HttpPut]
         [Route("Edit")]
-        public async Task<IActionResult> Update(DriverResponseModel driver)
+        public async Task<IActionResult> Update(MenuItemResponseModel menuItem)
         {
-            await _driverManager.Update(driver);
+            await _menuItemManager.Update(menuItem);
             return Ok();
         }
 
@@ -55,7 +55,7 @@ namespace DriverServices.Controllers
         [Route("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _driverManager.Delete(id);
+            await _menuItemManager.Delete(id);
             return Ok();
         }
     }
