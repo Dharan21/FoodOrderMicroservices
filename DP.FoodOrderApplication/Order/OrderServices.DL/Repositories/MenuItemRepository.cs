@@ -8,10 +8,10 @@ using System.Text;
 
 namespace OrderServices.DL.Repositories
 {
-    public class OrderItemRepository : GenericRepository<OrderItem>, IOrderItemRepository
+    public class MenuItemRepository : GenericRepository<MenuItem>, IMenuItemRepository
     {
         private OrderDbContext _context;
-        public OrderItemRepository(OrderDbContext context) : base(context)
+        public MenuItemRepository(OrderDbContext context) : base(context)
         {
             this._context = context;
         }

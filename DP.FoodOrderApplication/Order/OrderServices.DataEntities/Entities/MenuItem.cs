@@ -4,13 +4,11 @@ using System.Text;
 
 namespace OrderServices.DataEntities.Entities
 {
-    public class OrderItem
+    public class MenuItem
     {
         public int Id { get; set; }
         public int MenuItemId { get; set; }
-        public string MenuItemName { get; set; }
+        public string Name { get; set; }
         public int Price { get; set; }
-        public int Quantity { get; set; }
-        public IEnumerable<OrderDetail> OrderDetails { get; set; }
     }
 }

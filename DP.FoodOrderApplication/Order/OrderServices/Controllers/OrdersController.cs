@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OrderServices.BL.Interfaces;
+using OrderServices.BusinessEntities.RequestModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,14 @@ namespace OrderServices.Controllers
         {
             var orders = await this._orderManager.GetAll();
             return Ok(orders);
+        }
+
+        [HttpGet]
+        [Route("Add")]
+        public async Task<IActionResult> Add(OrderRequestModel order)
+        {
+            await this._orderManager.Add(order);
+            return Ok();
         }
     }
 }

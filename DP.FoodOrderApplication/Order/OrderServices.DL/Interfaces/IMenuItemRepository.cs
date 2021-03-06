@@ -6,7 +6,7 @@ using System.Text;
 
 namespace OrderServices.DL.Interfaces
 {
-    public interface IOrderItemRepository : IGenericRepository<OrderItem>
+    public interface IMenuItemRepository : IGenericRepository<MenuItem>
     {
     }
 }

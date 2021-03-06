@@ -1,4 +1,5 @@
-﻿using OrderServices.BusinessEntities.ResponseModels;
+﻿using OrderServices.BusinessEntities.RequestModels;
+using OrderServices.BusinessEntities.ResponseModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,5 +10,6 @@ namespace OrderServices.BL.Interfaces
     public interface IOrderManager
     {
         Task<List<OrderResponseModel>> GetAll();
+        Task Add(OrderRequestModel order);
     }
 }

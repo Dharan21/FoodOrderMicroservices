@@ -10,7 +10,7 @@ namespace OrderServices.DL
         public static void ConfigureServices(ref IServiceCollection services)
         {
             services.AddScoped<IOrderRepository, OrderRepository>();
-            services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+            services.AddScoped<IMenuItemRepository, MenuItemRepository>();
             services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
         }
     }

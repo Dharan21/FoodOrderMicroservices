@@ -14,7 +14,7 @@ namespace OrderServices.BL.Mapping
             cfg.CreateMap<Order, OrderResponseModel>()
                 .ForMember(x => x.OrderItems, cfg => cfg.Ignore())
                 ;
-            cfg.CreateMap<OrderItem, OrderItemResponseModel>();
+            cfg.CreateMap<MenuItem, OrderItemResponseModel>();
         }
     }
 }
