@@ -1,6 +1,19 @@
 {
   "ReRoutes": [
     {
+      "DownstreamPathTemplate": "/api/Customers/GetAll",
+      "DownstreamScheme": "https",
+      "DownstreamHostandPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44399
+        }
+      ],
+      "UpstreamPathTemplate": "/CustomerServices/Customers/GetAll",
+      "UpstreamHttpMethod": [ "GET", "OPTIONS" ],
+      "SwaggerKey": "customers"
+    },
+    {
       "DownstreamPathTemplate": "/api/{Controller}/{Method}/{Params}",
       "DownstreamScheme": "https",
       "DownstreamHostandPorts": [

@@ -12,5 +12,12 @@ namespace Infrastructure.Common.Enumerators
             DriverAssigned = 2,
             Delivered = 3
         }
+
+        public enum UserRole
+        {
+            Customer = 1,
+            Restaurant = 2,
+            Driver = 3
+        }
     }
 }
