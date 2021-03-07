@@ -26,6 +26,7 @@ namespace APIGateway
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddMvcCore().AddApiExplorer();
             services.AddOcelot();
             services.AddSwaggerForOcelot(Configuration);
         }
@@ -38,12 +39,12 @@ namespace APIGateway
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting();
+            //app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllers();
+            //});
 
             app.UseSwaggerForOcelotUI();
 

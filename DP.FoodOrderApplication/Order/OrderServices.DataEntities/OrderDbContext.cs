@@ -16,4 +16,5 @@ namespace OrderServices.DataEntities
         public OrderDbContext() { }
         public OrderDbContext(DbContextOptions<OrderDbContext> options) : base(options) { }
     }
+
 }

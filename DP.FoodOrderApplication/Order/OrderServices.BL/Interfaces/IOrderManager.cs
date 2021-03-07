@@ -11,5 +11,8 @@ namespace OrderServices.BL.Interfaces
     {
         Task<List<OrderResponseModel>> GetAll();
         Task Add(OrderRequestModel order);
+        Task AssignDriver(AssignDriverRequestModel model);
+        Task Edit(OrderRequestModel order);
+        Task Delete(int orderId);
     }
 }

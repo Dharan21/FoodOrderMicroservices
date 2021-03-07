@@ -8,7 +8,8 @@ namespace OrderServices.DataEntities.Entities
     {
         public int Id { get; set; }
         public int OrderId { get; set; }
-        public int OrderItemId { get; set; }
+        public int OrderedItemId { get; set; }
+        public int Quantity { get; set; }
 
         public Order Order { get; set; }
     }

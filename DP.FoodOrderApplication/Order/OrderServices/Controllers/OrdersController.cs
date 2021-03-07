@@ -27,12 +27,38 @@ namespace OrderServices.Controllers
             return Ok(orders);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("Add")]
         public async Task<IActionResult> Add(OrderRequestModel order)
         {
             await this._orderManager.Add(order);
             return Ok();
         }
+
+        [HttpPut]
+        [Route("Edit")]
+        public async Task<IActionResult> Edit(OrderRequestModel order)
+        {
+            await this._orderManager.Edit(order);
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("Delete")]
+        public async Task<IActionResult> Delete(int orderId)
+        {
+            await this._orderManager.Delete(orderId);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("AssignDriver")]
+        public async Task<IActionResult> AssignDriver(AssignDriverRequestModel model)
+        {
+            await this._orderManager.AssignDriver(model);
+            return Ok();
+        }
+
+
     }
 }

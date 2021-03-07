@@ -46,6 +46,8 @@ namespace OrderServices
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
+
             app.UseRouting();
 
             app.UseSwagger();
