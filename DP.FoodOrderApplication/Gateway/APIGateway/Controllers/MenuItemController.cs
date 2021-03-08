@@ -25,13 +25,13 @@ namespace APIGateway.Controllers
         public async Task<IActionResult> Edit(MenuItem menuItem)
         {
             string EditMenuItemUri = $"${Configuration["RestaurantServiceEndpoint"]}/MenuItem/Edit";
-            await HttpRequestClient.PostRequest<object>(EditMenuItemUri, menuItem);
+            await HttpRequestClient.PutRequest<object>(EditMenuItemUri, menuItem);
 
             string EditMenuItemForCustomerMicroserviceUri = $"${Configuration["CusotmerServiceEndpoint"]}/MenuItem/Edit";
-            await HttpRequestClient.PostRequest<object>(EditMenuItemForCustomerMicroserviceUri, menuItem);
+            await HttpRequestClient.PutRequest<object>(EditMenuItemForCustomerMicroserviceUri, menuItem);
 
             string EditMenuItemForOrderMicroserviceUri = $"${Configuration["OrderServiceEndpoint"]}/MenuItem/Edit";
-            await HttpRequestClient.PostRequest<object>(EditMenuItemForOrderMicroserviceUri, menuItem);
+            await HttpRequestClient.PutRequest<object>(EditMenuItemForOrderMicroserviceUri, menuItem);
 
             return Ok();
         }
@@ -41,13 +41,13 @@ namespace APIGateway.Controllers
         public async Task<IActionResult> Delete(int menuItemId)
         {
             string DeleteMenuItemUri = $"${Configuration["RestaurantServiceEndpoint"]}/MenuItem/Delete/${menuItemId}";
-            await HttpRequestClient.GetRequest<object>(DeleteMenuItemUri);
+            await HttpRequestClient.DeleteRequest<object>(DeleteMenuItemUri);
 
             string DeleteMenuItemForCustomerMicroserviceUri = $"${Configuration["CusotmerServiceEndpoint"]}/MenuItem/Delete/${menuItemId}";
-            await HttpRequestClient.GetRequest<object>(DeleteMenuItemForCustomerMicroserviceUri);
+            await HttpRequestClient.DeleteRequest<object>(DeleteMenuItemForCustomerMicroserviceUri);
 
             string DeleteMenuItemForOrderMicroserviceUri = $"${Configuration["OrderServiceEndpoint"]}/MenuItem/Delete/${menuItemId}";
-            await HttpRequestClient.GetRequest<object>(DeleteMenuItemForOrderMicroserviceUri);
+            await HttpRequestClient.DeleteRequest<object>(DeleteMenuItemForOrderMicroserviceUri);
 
             return Ok();
         }

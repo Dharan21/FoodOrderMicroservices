@@ -22,10 +22,10 @@ namespace APIGateway.Controllers
         public async Task<IActionResult> Edit(Driver driver)
         {
             string EditDriverUri = $"${Configuration["DriverServiceEndpoint"]}/Drivers/Edit";
-            await HttpRequestClient.PostRequest<object>(EditDriverUri, driver);
+            await HttpRequestClient.PutRequest<object>(EditDriverUri, driver);
 
             string EditDriverForOrderMicroserviceUri = $"${Configuration["OrderServiceEndpoint"]}/Drivers/Edit";
-            await HttpRequestClient.PostRequest<object>(EditDriverForOrderMicroserviceUri, driver);
+            await HttpRequestClient.PutRequest<object>(EditDriverForOrderMicroserviceUri, driver);
 
             return Ok();
         }
@@ -35,10 +35,10 @@ namespace APIGateway.Controllers
         public async Task<IActionResult> Delete(int driverId)
         {
             string DeleteDriverUri = $"${Configuration["DriverServiceEndpoint"]}/Drivers/Delete/${driverId}";
-            await HttpRequestClient.GetRequest<object>(DeleteDriverUri);
+            await HttpRequestClient.DeleteRequest<object>(DeleteDriverUri);
 
             string DeleteDriverForOrderMicroserviceUri = $"${Configuration["OrderServiceEndpoint"]}/Drivers/Delete/${driverId}";
-            await HttpRequestClient.GetRequest<object>(DeleteDriverForOrderMicroserviceUri);
+            await HttpRequestClient.DeleteRequest<object>(DeleteDriverForOrderMicroserviceUri);
 
             return Ok();
         }

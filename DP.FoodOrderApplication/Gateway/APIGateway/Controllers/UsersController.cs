@@ -21,6 +21,8 @@ namespace APIGateway.Controllers
             Configuration = configuration;
         }
 
+        [HttpPost]
+        [Route("AddCustomer")]
         public async Task<IActionResult> AddCustomer(Customer customer)
         {
             User user = new User()
@@ -40,6 +42,8 @@ namespace APIGateway.Controllers
             return BadRequest();
         }
 
+        [HttpPost]
+        [Route("AddDriver")]
         public async Task<IActionResult> AddDriverUser(Driver driver)
         {
             User user = new User()
@@ -58,6 +62,9 @@ namespace APIGateway.Controllers
             }
             return BadRequest();
         }
+
+        [HttpPost]
+        [Route("AddRestaurant")]
         public async Task<IActionResult> AddRestaurantUser(Restaurant restaurant)
         {
             User user = new User()

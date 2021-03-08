@@ -1,5 +1,6 @@
 {
   "Routes": [
+    // CUSTOMER
     {
       "DownstreamPathTemplate": "/api/{Controller}/{Method}",
       "DownstreamScheme": "https",
@@ -26,6 +27,7 @@
       "UpstreamHttpMethod": [ "GET", "DELETE" ],
       "SwaggerKey": "customers"
     },
+    // DRIVER
     {
       "DownstreamPathTemplate": "/api/{Controllers}/{Methods}",
       "DownstreamScheme": "https",
@@ -52,6 +54,7 @@
       "UpstreamHttpMethod": [ "GET", "DELETE" ],
       "SwaggerKey": "drivers"
     },
+    // ORDER
     {
       "DownstreamPathTemplate": "/api/{Controllers}/{Methods}",
       "DownstreamScheme": "https",
@@ -78,6 +81,7 @@
       "UpstreamHttpMethod": [ "GET", "DELETE" ],
       "SwaggerKey": "orders"
     },
+    // RESTAURANT
     {
       "DownstreamPathTemplate": "/api/{Controllers}/{Methods}",
       "DownstreamScheme": "https",
@@ -90,7 +94,7 @@
       "UpstreamPathTemplate": "/Restaurant/{Controllers}/{Methods}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
       "SwaggerKey": "restaurants"
-    }
+    },
     {
       "DownstreamPathTemplate": "/api/{Controllers}/{Methods}/{Params}",
       "DownstreamScheme": "https",

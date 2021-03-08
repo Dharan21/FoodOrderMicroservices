@@ -33,6 +33,29 @@ namespace Infrastructure.Common.Utility
             }
         }
 
+        public static async Task<T> DeleteRequest<T>(string uri)
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    using HttpResponseMessage response = await client.DeleteAsync(uri);
+                    response.EnsureSuccessStatusCode();
+                    string responseBody = await response.Content.ReadAsStringAsync();
+
+                    return JsonConvert.DeserializeObject<T>(responseBody);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return default(T);
+            }
+        }
+
         public static async Task<T> PostRequest<T>(string uri, object model)
         {
             try
@@ -46,6 +69,32 @@ namespace Infrastructure.Common.Utility
                     new MediaTypeWithQualityHeaderValue("application/json"));
 
                     using HttpResponseMessage response = await client.PostAsync(uri, data);
+                    response.EnsureSuccessStatusCode();
+                    string responseBody = await response.Content.ReadAsStringAsync();
+
+                    return JsonConvert.DeserializeObject<T>(responseBody);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return default(T);
+            }
+        }
+
+        public static async Task<T> PutRequest<T>(string uri, object model)
+        {
+            try
+            {
+                var json = JsonConvert.SerializeObject(model);
+                var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    using HttpResponseMessage response = await client.PutAsync(uri, data);
                     response.EnsureSuccessStatusCode();
                     string responseBody = await response.Content.ReadAsStringAsync();
 
