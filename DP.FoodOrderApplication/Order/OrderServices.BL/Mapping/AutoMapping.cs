@@ -29,9 +29,20 @@ namespace OrderServices.BL.Mapping
                 .ForMember(dest => dest.OrderDetails, cfg => cfg.Ignore())
                 ;
 
-            //cfg.CreateMap<MenuItem, OrderItemResponseModel>()
-            //    .ForMember(dest => dest.MenuItemName, cfg => cfg.MapFrom(src => src.Name))
-            //    ;
+            cfg.CreateMap<RestaurantRequestModel, Restaurant>()
+                .ForMember(dest => dest.RestaurantId, cfg => cfg.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Id, cfg => cfg.Ignore())
+                ;
+
+            cfg.CreateMap<DriverRequestModel, Driver>()
+                .ForMember(dest => dest.DriverId, cfg => cfg.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Id, cfg => cfg.Ignore())
+                ;
+
+            cfg.CreateMap<MenuItemRequestModel, MenuItem>()
+                .ForMember(dest => dest.MenuItemId, cfg => cfg.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Id, cfg => cfg.Ignore())
+                ;
         }
     }
 }

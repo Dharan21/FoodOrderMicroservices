@@ -6,6 +6,7 @@ using OrderServices.DataEntities.Entities;
 using OrderServices.DL.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -104,6 +105,48 @@ namespace OrderServices.BL.Managers
             }
         }
 
+        public async Task<MonthlyReportResponseModel> GenerateMonthlyReport(int restaurantId, int month)
+        {
+            MonthlyReportResponseModel responseObject = new MonthlyReportResponseModel();
+            if (month == -1)
+                month = DateTime.UtcNow.Month;
+            responseObject.Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month);
+            responseObject.RestaurantId = restaurantId;
+            List<Order> ordersEntity = await this._orderRepository.FindAllAsync(x => x.RestaurantId == restaurantId && x.DateTime.Month == month && x.Status == OrderStatus.Delivered);
+            List<int> orderIds = ordersEntity.Select(x => x.Id).ToList();
+            List<OrderDetail> orderDetailsEntity = await this._orderDetailRepository.FindAllAsync(x => orderIds.Contains(x.OrderId));
+            List<int> orderedItemIds = orderDetailsEntity.Select(x => x.OrderedItemId).ToList();
+            List<MenuItem> menuItemsEntity = await this._menuItemRepository.FindAllAsync(x => orderedItemIds.Contains(x.MenuItemId));
+            List<int> driversIds = ordersEntity.Select(x => x.DriverId ?? 0).Where(x => x != 0).ToList();
+            Restaurant restaurantEntity = await this._restaurantRepository.FindAsync(x => x.RestaurantId == restaurantId);
+            responseObject.RestaurantName = restaurantEntity.Name;
+            List<Driver> driversEntity = await this._driverRepository.FindAllAsync(x => driversIds.Contains(x.DriverId));
+            List<OrderResponseModel> orders = this._mapper.Map<List<Order>, List<OrderResponseModel>>(ordersEntity);
+            foreach (OrderResponseModel order in orders)
+            {
+                order.RestaurantName = restaurantEntity.Name;
+                if (order.DriverId.HasValue)
+                {
+                    Driver driverEntity = driversEntity.FirstOrDefault(x => x.DriverId == order.DriverId);
+                    if (driverEntity != null)
+                        order.DriverName = $"${driverEntity.FirstName} ${driverEntity.LastName}";
+                }
+                order.OrderItems = orderDetailsEntity.Where(x => x.OrderId == order.Id).Select(x =>
+                {
+                    MenuItem menuItemEntity = menuItemsEntity.FirstOrDefault(y => y.Id == x.OrderedItemId);
+                    OrderItemResponseModel orderedItem = new OrderItemResponseModel()
+                    {
+                        MenuItemName = menuItemEntity.Name,
+                        Price = menuItemEntity.Price,
+                        Quantity = x.Quantity
+                    };
+                    return orderedItem;
+                }).ToList();
+            }
+            responseObject.DeliveredOrders = orders;
+            return responseObject;
+        }
+
         public async Task<List<OrderResponseModel>> GetAll()
         {
             List<Order> ordersEntity = await this._orderRepository.GetAll();
@@ -136,6 +179,142 @@ namespace OrderServices.BL.Managers
                 }).ToList();
             }
             return orders;
+        }
+
+        public async Task<List<OrderResponseModel>> GetByCustomer(int customerId)
+        {
+            List<Order> ordersEntity = await this._orderRepository.FindAllAsync(x => x.CustomerId == customerId);
+            List<int> orderIds = ordersEntity.Select(x => x.Id).ToList();
+            List<OrderDetail> orderDetailsEntity = await this._orderDetailRepository.FindAllAsync(x => orderIds.Contains(x.OrderId));
+            List<int> orderedItemIds = orderDetailsEntity.Select(x => x.OrderedItemId).ToList();
+            List<MenuItem> menuItemsEntity = await this._menuItemRepository.FindAllAsync(x => orderedItemIds.Contains(x.MenuItemId));
+            List<int> restaurantsIds = ordersEntity.Select(x => x.RestaurantId).ToList();
+            List<int> driversIds = ordersEntity.Select(x => x.DriverId ?? 0).Where(x => x != 0).ToList();
+            List<Restaurant> restaurantsEntity = await this._restaurantRepository.FindAllAsync(x => restaurantsIds.Contains(x.RestaurantId));
+            List<Driver> driversEntity = await this._driverRepository.FindAllAsync(x => driversIds.Contains(x.DriverId));
+            List<OrderResponseModel> orders = this._mapper.Map<List<Order>, List<OrderResponseModel>>(ordersEntity);
+            foreach (OrderResponseModel order in orders)
+            {
+                order.RestaurantName = restaurantsEntity.FirstOrDefault(x => x.RestaurantId == order.RestaurantId).Name;
+                if (order.DriverId.HasValue)
+                {
+                    Driver driverEntity = driversEntity.FirstOrDefault(x => x.DriverId == order.DriverId);
+                    if (driverEntity != null)
+                        order.DriverName = $"${driverEntity.FirstName} ${driverEntity.LastName}";
+                }
+                order.OrderItems = orderDetailsEntity.Where(x => x.OrderId == order.Id).Select(x =>
+                {
+                    MenuItem menuItemEntity = menuItemsEntity.FirstOrDefault(y => y.Id == x.OrderedItemId);
+                    OrderItemResponseModel orderedItem = new OrderItemResponseModel()
+                    {
+                        MenuItemName = menuItemEntity.Name,
+                        Price = menuItemEntity.Price,
+                        Quantity = x.Quantity
+                    };
+                    return orderedItem;
+                }).ToList();
+            }
+            return orders;
+        }
+
+        public async Task<List<OrderResponseModel>> GetByDriver(int driverId)
+        {
+            List<Order> ordersEntity = await this._orderRepository.FindAllAsync(x => x.DriverId == driverId);
+            List<int> orderIds = ordersEntity.Select(x => x.Id).ToList();
+            List<OrderDetail> orderDetailsEntity = await this._orderDetailRepository.FindAllAsync(x => orderIds.Contains(x.OrderId));
+            List<int> orderedItemIds = orderDetailsEntity.Select(x => x.OrderedItemId).ToList();
+            List<MenuItem> menuItemsEntity = await this._menuItemRepository.FindAllAsync(x => orderedItemIds.Contains(x.MenuItemId));
+            List<int> restaurantsIds = ordersEntity.Select(x => x.RestaurantId).ToList();
+            List<Restaurant> restaurantsEntity = await this._restaurantRepository.FindAllAsync(x => restaurantsIds.Contains(x.RestaurantId));
+            Driver driverEntity = await this._driverRepository.FindAsync(x => driverId == x.DriverId);
+            List<OrderResponseModel> orders = this._mapper.Map<List<Order>, List<OrderResponseModel>>(ordersEntity);
+            foreach (OrderResponseModel order in orders)
+            {
+                order.RestaurantName = restaurantsEntity.FirstOrDefault(x => x.RestaurantId == order.RestaurantId).Name;
+                order.DriverName = $"${driverEntity.FirstName} ${driverEntity.LastName}";
+                order.OrderItems = orderDetailsEntity.Where(x => x.OrderId == order.Id).Select(x =>
+                {
+                    MenuItem menuItemEntity = menuItemsEntity.FirstOrDefault(y => y.Id == x.OrderedItemId);
+                    OrderItemResponseModel orderedItem = new OrderItemResponseModel()
+                    {
+                        MenuItemName = menuItemEntity.Name,
+                        Price = menuItemEntity.Price,
+                        Quantity = x.Quantity
+                    };
+                    return orderedItem;
+                }).ToList();
+            }
+            return orders;
+        }
+
+        public async Task<List<OrderResponseModel>> GetByRestaurant(int restaurantId)
+        {
+            List<Order> ordersEntity = await this._orderRepository.FindAllAsync(x => x.RestaurantId == restaurantId);
+            List<int> orderIds = ordersEntity.Select(x => x.Id).ToList();
+            List<OrderDetail> orderDetailsEntity = await this._orderDetailRepository.FindAllAsync(x => orderIds.Contains(x.OrderId));
+            List<int> orderedItemIds = orderDetailsEntity.Select(x => x.OrderedItemId).ToList();
+            List<MenuItem> menuItemsEntity = await this._menuItemRepository.FindAllAsync(x => orderedItemIds.Contains(x.MenuItemId));
+            List<int> driversIds = ordersEntity.Select(x => x.DriverId ?? 0).Where(x => x != 0).ToList();
+            Restaurant restaurantEntity = await this._restaurantRepository.FindAsync(x => x.RestaurantId == restaurantId);
+            List<Driver> driversEntity = await this._driverRepository.FindAllAsync(x => driversIds.Contains(x.DriverId));
+            List<OrderResponseModel> orders = this._mapper.Map<List<Order>, List<OrderResponseModel>>(ordersEntity);
+            foreach (OrderResponseModel order in orders)
+            {
+                order.RestaurantName = restaurantEntity.Name;
+                if (order.DriverId.HasValue)
+                {
+                    Driver driverEntity = driversEntity.FirstOrDefault(x => x.DriverId == order.DriverId);
+                    if (driverEntity != null)
+                        order.DriverName = $"${driverEntity.FirstName} ${driverEntity.LastName}";
+                }
+                order.OrderItems = orderDetailsEntity.Where(x => x.OrderId == order.Id).Select(x =>
+                {
+                    MenuItem menuItemEntity = menuItemsEntity.FirstOrDefault(y => y.Id == x.OrderedItemId);
+                    OrderItemResponseModel orderedItem = new OrderItemResponseModel()
+                    {
+                        MenuItemName = menuItemEntity.Name,
+                        Price = menuItemEntity.Price,
+                        Quantity = x.Quantity
+                    };
+                    return orderedItem;
+                }).ToList();
+            }
+            return orders;
+        }
+
+        public async Task<DriverOrderResponseModel> GetByRestaurant(int restaurantId, int driverId)
+        {
+            DriverOrderResponseModel responseObject = new DriverOrderResponseModel();
+            Driver driverEntity = await this._driverRepository.FindAsync(x => x.DriverId == driverId);
+            if (driverEntity == null)
+                return responseObject;
+            responseObject.DriverId = driverId;
+            responseObject.DriverName = $"${driverEntity.FirstName} ${driverEntity.LastName}";
+            List<Order> ordersEntity = await this._orderRepository.FindAllAsync(x => x.RestaurantId == restaurantId && x.DriverId == driverId && DateTime.UtcNow.AddMonths(-2) >= x.DateTime);
+            List<int> orderIds = ordersEntity.Select(x => x.Id).ToList();
+            List<OrderDetail> orderDetailsEntity = await this._orderDetailRepository.FindAllAsync(x => orderIds.Contains(x.OrderId));
+            List<int> orderedItemIds = orderDetailsEntity.Select(x => x.OrderedItemId).ToList();
+            List<MenuItem> menuItemsEntity = await this._menuItemRepository.FindAllAsync(x => orderedItemIds.Contains(x.MenuItemId));
+            Restaurant restaurantEntity = await this._restaurantRepository.FindAsync(x => x.RestaurantId == restaurantId);
+            List<OrderResponseModel> orders = this._mapper.Map<List<Order>, List<OrderResponseModel>>(ordersEntity);
+            foreach (OrderResponseModel order in orders)
+            {
+                order.RestaurantName = restaurantEntity.Name;
+                order.DriverName = $"${driverEntity.FirstName} ${driverEntity.LastName}";
+                order.OrderItems = orderDetailsEntity.Where(x => x.OrderId == order.Id).Select(x =>
+                {
+                    MenuItem menuItemEntity = menuItemsEntity.FirstOrDefault(y => y.Id == x.OrderedItemId);
+                    OrderItemResponseModel orderedItem = new OrderItemResponseModel()
+                    {
+                        MenuItemName = menuItemEntity.Name,
+                        Price = menuItemEntity.Price,
+                        Quantity = x.Quantity
+                    };
+                    return orderedItem;
+                }).ToList();
+            }
+            responseObject.Orders = orders;
+            return responseObject;
         }
     }
 }

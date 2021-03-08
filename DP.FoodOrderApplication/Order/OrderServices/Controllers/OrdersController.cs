@@ -27,6 +27,46 @@ namespace OrderServices.Controllers
             return Ok(orders);
         }
 
+        [HttpGet]
+        [Route("GetByCustomer/{customerId}")]
+        public async Task<IActionResult> GetByCustomer(int customerId)
+        {
+            var orders = await this._orderManager.GetByCustomer(customerId);
+            return Ok(orders);
+        }
+
+        [HttpGet]
+        [Route("GenerateMonthlyReport/{restaurantId}/{month}")]
+        public async Task<IActionResult> GenerateMonthlyReport(int restaurantId, int month = -1)
+        {
+            var orders = await this._orderManager.GenerateMonthlyReport(restaurantId, month);
+            return Ok(orders);
+        }
+
+        [HttpGet]
+        [Route("GetByRestaurant/{restaurantId}")]
+        public async Task<IActionResult> GetByRestaurant(int restaurantId)
+        {
+            var orders = await this._orderManager.GetByRestaurant(restaurantId);
+            return Ok(orders);
+        }
+
+        [HttpGet]
+        [Route("GetByRestaurantAndDriver/{restaurantId}/{driverId}")]
+        public async Task<IActionResult> GetByRestaurant(int restaurantId, int driverId)
+        {
+            var orders = await this._orderManager.GetByRestaurant(restaurantId, driverId);
+            return Ok(orders);
+        }
+        [HttpGet]
+        [Route("GetByDriver/{driverId}")]
+        public async Task<IActionResult> GetByDriver(int driverId)
+        {
+            var orders = await this._orderManager.GetByDriver(driverId);
+            return Ok(orders);
+        }
+
+
         [HttpPost]
         [Route("Add")]
         public async Task<IActionResult> Add(OrderRequestModel order)

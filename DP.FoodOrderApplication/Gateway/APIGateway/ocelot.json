@@ -1,7 +1,7 @@
 {
-  "ReRoutes": [
+  "Routes": [
     {
-      "DownstreamPathTemplate": "/api/Customers/GetAll",
+      "DownstreamPathTemplate": "/api/{Controller}/{Method}",
       "DownstreamScheme": "https",
       "DownstreamHostandPorts": [
         {
@@ -9,8 +9,8 @@
           "Port": 44399
         }
       ],
-      "UpstreamPathTemplate": "/CustomerServices/Customers/GetAll",
-      "UpstreamHttpMethod": [ "GET", "OPTIONS" ],
+      "UpstreamPathTemplate": "/Customer/{Controller}/{Method}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
       "SwaggerKey": "customers"
     },
     {
@@ -23,8 +23,21 @@
         }
       ],
       "UpstreamPathTemplate": "/Customer/{Controller}/{Method}/{Params}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "UpstreamHttpMethod": [ "GET", "DELETE" ],
       "SwaggerKey": "customers"
+    },
+    {
+      "DownstreamPathTemplate": "/api/{Controllers}/{Methods}",
+      "DownstreamScheme": "https",
+      "DownstreamHostandPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44346
+        }
+      ],
+      "UpstreamPathTemplate": "/Driver/{Controllers}/{Methods}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+      "SwaggerKey": "drivers"
     },
     {
       "DownstreamPathTemplate": "/api/{Controllers}/{Methods}/{Params}",
@@ -32,12 +45,25 @@
       "DownstreamHostandPorts": [
         {
           "Host": "localhost",
-          "Port": 44345
+          "Port": 44346
         }
       ],
       "UpstreamPathTemplate": "/Driver/{Controllers}/{Methods}/{Params}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "UpstreamHttpMethod": [ "GET", "DELETE" ],
       "SwaggerKey": "drivers"
+    },
+    {
+      "DownstreamPathTemplate": "/api/{Controllers}/{Methods}",
+      "DownstreamScheme": "https",
+      "DownstreamHostandPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44375
+        }
+      ],
+      "UpstreamPathTemplate": "/Order/{Controllers}/{Methods}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+      "SwaggerKey": "orders"
     },
     {
       "DownstreamPathTemplate": "/api/{Controllers}/{Methods}/{Params}",
@@ -49,9 +75,22 @@
         }
       ],
       "UpstreamPathTemplate": "/Order/{Controllers}/{Methods}/{Params}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "UpstreamHttpMethod": [ "GET", "DELETE" ],
       "SwaggerKey": "orders"
     },
+    {
+      "DownstreamPathTemplate": "/api/{Controllers}/{Methods}",
+      "DownstreamScheme": "https",
+      "DownstreamHostandPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44362
+        }
+      ],
+      "UpstreamPathTemplate": "/Restaurant/{Controllers}/{Methods}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+      "SwaggerKey": "restaurants"
+    }
     {
       "DownstreamPathTemplate": "/api/{Controllers}/{Methods}/{Params}",
       "DownstreamScheme": "https",
@@ -62,7 +101,7 @@
         }
       ],
       "UpstreamPathTemplate": "/Restaurant/{Controllers}/{Methods}/{Params}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "UpstreamHttpMethod": [ "GET", "DELETE" ],
       "SwaggerKey": "restaurants"
     }
   ],
@@ -86,7 +125,7 @@
         {
           "Name": "Driver Microservice",
           "Version": "v1",
-          "Url": "https://localhost:44345/swagger/v1/swagger.json"
+          "Url": "https://localhost:44346/swagger/v1/swagger.json"
         }
       ]
     },

@@ -1,4 +1,4 @@
-﻿using APIGateway.Utility;
+﻿using Infrastructure.Common.Utility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;

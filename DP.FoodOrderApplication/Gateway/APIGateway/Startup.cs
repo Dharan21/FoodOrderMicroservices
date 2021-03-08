@@ -1,3 +1,4 @@
+using APIGateway.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -15,7 +16,6 @@ namespace APIGateway
 {
     public class Startup
     {
-
         public IConfiguration Configuration { get; }
         public Startup(IConfiguration cfg)
         {
@@ -39,12 +39,14 @@ namespace APIGateway
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseRouting();
+            app.UseRouting();
 
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllers();
-            //});
+            //app.UseAuthorizationMiddleware();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
 
             app.UseSwaggerForOcelotUI();
 
