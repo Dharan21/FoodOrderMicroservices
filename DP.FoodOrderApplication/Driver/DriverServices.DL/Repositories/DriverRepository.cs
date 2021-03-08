@@ -5,6 +5,7 @@ using Infrastructure.Repository.Classes;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DriverServices.DL.Repositories
 {
@@ -14,6 +15,13 @@ namespace DriverServices.DL.Repositories
         public DriverRepository(DriverDbContext context) : base(context)
         {
             this._context = context;
+        }
+
+        public async Task<int> CreateDriver(Driver driver)
+        {
+            this._context.Drivers.Add(driver);
+            await this._context.SaveChangesAsync();
+            return driver.Id;
         }
     }
 }

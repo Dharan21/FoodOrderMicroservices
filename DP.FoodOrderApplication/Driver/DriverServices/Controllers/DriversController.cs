@@ -39,8 +39,8 @@ namespace DriverServices.Controllers
         [Route("Add")]
         public async Task<IActionResult> Add(DriverResponseModel driver)
         {
-            await _driverManager.Add(driver);
-            return Ok();
+            int driverId = await _driverManager.Add(driver);
+            return Ok(new { Id = driverId });
         }
 
         [HttpPut]

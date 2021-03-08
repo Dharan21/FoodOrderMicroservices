@@ -40,8 +40,8 @@ namespace RestaurantServices.Controllers
         [Route("Add")]
         public async Task<IActionResult> Add(RestaurantRequestModel restaurant)
         {
-            await _restaurantManager.Add(restaurant);
-            return Ok();
+            int restaurantId = await _restaurantManager.Add(restaurant);
+            return Ok(new { Id = restaurantId });
         }
 
         [HttpPut]

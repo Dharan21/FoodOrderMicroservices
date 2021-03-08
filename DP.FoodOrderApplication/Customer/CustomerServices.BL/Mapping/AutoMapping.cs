@@ -16,12 +16,16 @@ namespace CustomerServices.BL.Mapping
             cfg.CreateMap<Restaurant, RestaurantResponseModel>();
 
             cfg.CreateMap<RestaurantResponseModel, Restaurant>()
-                .ForMember(x => x.Id, cfg => cfg.Ignore());
+                .ForMember(x => x.RestaurantId, cfg => cfg.MapFrom(src => src.Id))
+                .ForMember(x => x.Id, cfg => cfg.Ignore())
+                ;
 
             cfg.CreateMap<MenuItem, MenuItemResponseModel>();
 
             cfg.CreateMap<MenuItemResponseModel, MenuItem>()
-                .ForMember(x => x.Id, cfg => cfg.Ignore());
+                .ForMember(x => x.MenuItemId, cfg => cfg.MapFrom(src => src.Id))
+                .ForMember(x => x.Id, cfg => cfg.Ignore())
+                ;
         }
     }
 }

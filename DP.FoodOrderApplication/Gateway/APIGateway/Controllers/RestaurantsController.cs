@@ -24,13 +24,13 @@ namespace APIGateway.Controllers
         [Route("Edit")]
         public async Task<IActionResult> Edit(Restaurant restaurant)
         {
-            string EditRestaurantUri = $"${Configuration["RestaurantServiceEndpoint"]}/Restaurant/Edit";
+            string EditRestaurantUri = $"{Configuration["RestaurantServiceEndpoint"]}/Restaurant/Edit";
             await HttpRequestClient.PutRequest<object>(EditRestaurantUri, restaurant);
 
-            string EditRestaurantForCustomerMicroserviceUri = $"${Configuration["CusotmerServiceEndpoint"]}/Restaurant/Edit";
+            string EditRestaurantForCustomerMicroserviceUri = $"{Configuration["CusotmerServiceEndpoint"]}/Restaurant/Edit";
             await HttpRequestClient.PutRequest<object>(EditRestaurantForCustomerMicroserviceUri, restaurant);
 
-            string EditRestaurantForOrderMicroserviceUri = $"${Configuration["OrderServiceEndpoint"]}/Restaurant/Edit";
+            string EditRestaurantForOrderMicroserviceUri = $"{Configuration["OrderServiceEndpoint"]}/Restaurant/Edit";
             await HttpRequestClient.PutRequest<object>(EditRestaurantForOrderMicroserviceUri, restaurant);
 
             return Ok();
@@ -40,13 +40,13 @@ namespace APIGateway.Controllers
         [Route("Delete")]
         public async Task<IActionResult> Delete(int restaurantId)
         {
-            string DeleteRestaurantUri = $"${Configuration["RestaurantServiceEndpoint"]}/Restaurant/Delete/${restaurantId}";
+            string DeleteRestaurantUri = $"{Configuration["RestaurantServiceEndpoint"]}/Restaurant/Delete/{restaurantId}";
             await HttpRequestClient.DeleteRequest<object>(DeleteRestaurantUri);
 
-            string DeleteRestaurantForCustomerMicroserviceUri = $"${Configuration["CusotmerServiceEndpoint"]}/Restaurant/Delete/${restaurantId}";
+            string DeleteRestaurantForCustomerMicroserviceUri = $"{Configuration["CusotmerServiceEndpoint"]}/Restaurant/Delete/{restaurantId}";
             await HttpRequestClient.DeleteRequest<object>(DeleteRestaurantForCustomerMicroserviceUri);
 
-            string DeleteRestaurantForOrderMicroserviceUri = $"${Configuration["OrderServiceEndpoint"]}/Restaurant/Delete/${restaurantId}";
+            string DeleteRestaurantForOrderMicroserviceUri = $"{Configuration["OrderServiceEndpoint"]}/Restaurant/Delete/{restaurantId}";
             await HttpRequestClient.DeleteRequest<object>(DeleteRestaurantForOrderMicroserviceUri);
 
             return Ok();

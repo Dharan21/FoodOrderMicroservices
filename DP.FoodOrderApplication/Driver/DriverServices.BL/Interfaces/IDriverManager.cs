@@ -10,7 +10,7 @@ namespace DriverServices.BL.Interfaces
     {
         Task<List<DriverResponseModel>> GetAll();
         Task<DriverResponseModel> Get(int id);
-        Task Add(DriverResponseModel driver);
+        Task<int> Add(DriverResponseModel driver);
         Task Update(DriverResponseModel driver);
         Task Delete(int id);
     }

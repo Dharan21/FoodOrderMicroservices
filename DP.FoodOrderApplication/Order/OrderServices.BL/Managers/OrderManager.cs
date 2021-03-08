@@ -129,7 +129,7 @@ namespace OrderServices.BL.Managers
                 {
                     Driver driverEntity = driversEntity.FirstOrDefault(x => x.DriverId == order.DriverId);
                     if (driverEntity != null)
-                        order.DriverName = $"${driverEntity.FirstName} ${driverEntity.LastName}";
+                        order.DriverName = $"{driverEntity.FirstName} {driverEntity.LastName}";
                 }
                 order.OrderItems = orderDetailsEntity.Where(x => x.OrderId == order.Id).Select(x =>
                 {
@@ -164,7 +164,7 @@ namespace OrderServices.BL.Managers
                 {
                     Driver driverEntity = driversEntity.FirstOrDefault(x => x.DriverId == order.DriverId);
                     if (driverEntity != null)
-                        order.DriverName = $"${driverEntity.FirstName} ${driverEntity.LastName}";
+                        order.DriverName = $"{driverEntity.FirstName} {driverEntity.LastName}";
                 }
                 order.OrderItems = orderDetailsEntity.Where(x => x.OrderId == order.Id).Select(x =>
                 {
@@ -200,7 +200,7 @@ namespace OrderServices.BL.Managers
                 {
                     Driver driverEntity = driversEntity.FirstOrDefault(x => x.DriverId == order.DriverId);
                     if (driverEntity != null)
-                        order.DriverName = $"${driverEntity.FirstName} ${driverEntity.LastName}";
+                        order.DriverName = $"{driverEntity.FirstName} {driverEntity.LastName}";
                 }
                 order.OrderItems = orderDetailsEntity.Where(x => x.OrderId == order.Id).Select(x =>
                 {
@@ -231,7 +231,7 @@ namespace OrderServices.BL.Managers
             foreach (OrderResponseModel order in orders)
             {
                 order.RestaurantName = restaurantsEntity.FirstOrDefault(x => x.RestaurantId == order.RestaurantId).Name;
-                order.DriverName = $"${driverEntity.FirstName} ${driverEntity.LastName}";
+                order.DriverName = $"{driverEntity.FirstName} {driverEntity.LastName}";
                 order.OrderItems = orderDetailsEntity.Where(x => x.OrderId == order.Id).Select(x =>
                 {
                     MenuItem menuItemEntity = menuItemsEntity.FirstOrDefault(y => y.Id == x.OrderedItemId);
@@ -265,7 +265,7 @@ namespace OrderServices.BL.Managers
                 {
                     Driver driverEntity = driversEntity.FirstOrDefault(x => x.DriverId == order.DriverId);
                     if (driverEntity != null)
-                        order.DriverName = $"${driverEntity.FirstName} ${driverEntity.LastName}";
+                        order.DriverName = $"{driverEntity.FirstName} {driverEntity.LastName}";
                 }
                 order.OrderItems = orderDetailsEntity.Where(x => x.OrderId == order.Id).Select(x =>
                 {
@@ -289,8 +289,8 @@ namespace OrderServices.BL.Managers
             if (driverEntity == null)
                 return responseObject;
             responseObject.DriverId = driverId;
-            responseObject.DriverName = $"${driverEntity.FirstName} ${driverEntity.LastName}";
-            List<Order> ordersEntity = await this._orderRepository.FindAllAsync(x => x.RestaurantId == restaurantId && x.DriverId == driverId && DateTime.UtcNow.AddMonths(-2) >= x.DateTime);
+            responseObject.DriverName = $"{driverEntity.FirstName} {driverEntity.LastName}";
+            List<Order> ordersEntity = await this._orderRepository.FindAllAsync(x => x.RestaurantId == restaurantId && x.DriverId == driverId && DateTime.UtcNow <= x.DateTime.AddMonths(2));
             List<int> orderIds = ordersEntity.Select(x => x.Id).ToList();
             List<OrderDetail> orderDetailsEntity = await this._orderDetailRepository.FindAllAsync(x => orderIds.Contains(x.OrderId));
             List<int> orderedItemIds = orderDetailsEntity.Select(x => x.OrderedItemId).ToList();
@@ -300,7 +300,7 @@ namespace OrderServices.BL.Managers
             foreach (OrderResponseModel order in orders)
             {
                 order.RestaurantName = restaurantEntity.Name;
-                order.DriverName = $"${driverEntity.FirstName} ${driverEntity.LastName}";
+                order.DriverName = $"{driverEntity.FirstName} {driverEntity.LastName}";
                 order.OrderItems = orderDetailsEntity.Where(x => x.OrderId == order.Id).Select(x =>
                 {
                     MenuItem menuItemEntity = menuItemsEntity.FirstOrDefault(y => y.Id == x.OrderedItemId);

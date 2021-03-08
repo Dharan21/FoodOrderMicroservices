@@ -11,7 +11,7 @@ namespace RestaurantServices.BL.Interfaces
     {
         Task<List<RestaurantResponseModel>> GetAll();
         Task<RestaurantResponseModel> Get(int id);
-        Task Add(RestaurantRequestModel restaurant);
+        Task<int> Add(RestaurantRequestModel restaurant);
         Task Update(RestaurantRequestModel restaurant);
         Task Delete(int id);
     }

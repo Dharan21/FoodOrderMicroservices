@@ -5,6 +5,7 @@ using RestaurantServices.DL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace RestaurantServices.DL.Repositories
 {
@@ -14,6 +15,13 @@ namespace RestaurantServices.DL.Repositories
         public RestaurantRepository(RestaurantDbContext context) : base(context)
         {
             this._context = context;
+        }
+
+        public async Task<int> CreateRestaurant(Restaurant restaurant)
+        {
+            this._context.Restaurants.Add(restaurant);
+            await this._context.SaveChangesAsync();
+            return restaurant.Id;
         }
     }
 }

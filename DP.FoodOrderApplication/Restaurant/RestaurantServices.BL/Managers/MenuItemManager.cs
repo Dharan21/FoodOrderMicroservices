@@ -32,10 +32,10 @@ namespace RestaurantServices.BL.Managers
             return this._mapper.Map<MenuItem, MenuItemResponseModel>(menuItemEntity);
         }
 
-        public async Task Add(MenuItemResponseModel menuItem)
+        public async Task<int> Add(MenuItemResponseModel menuItem)
         {
             MenuItem menuItemEntity = this._mapper.Map<MenuItemResponseModel, MenuItem>(menuItem);
-            await this._menuItemRepository.Create(menuItemEntity);
+            return await this._menuItemRepository.CreateMenuItem(menuItemEntity);
         }
 
         public async Task Update(MenuItemResponseModel menuItem)

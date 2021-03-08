@@ -31,15 +31,12 @@ namespace APIGateway.Controllers
                 Password = customer.Password,
                 Role = UserRole.Customer
             };
-            string AddUserUri = $"${Configuration["AuthorizationServiceEndpoint"]}/Users/Add";
-            var response = await HttpRequestClient.PostRequest<object>(AddUserUri, user);
-            if (response != null)
-            {
-                string AddCustomerUri = $"${Configuration["CusotmerServiceEndpoint"]}/Customers/Add";
-                await HttpRequestClient.PostRequest<object>(AddCustomerUri, customer);
-                return Ok();
-            }
-            return BadRequest();
+            string AddUserUri = $"{Configuration["AuthorizationServiceEndpoint"]}/Users/Add";
+            await HttpRequestClient.PostRequest<object>(AddUserUri, user);
+           
+            string AddCustomerUri = $"{Configuration["CusotmerServiceEndpoint"]}/Customers/Add";
+            await HttpRequestClient.PostRequest<object>(AddCustomerUri, customer);
+            return Ok();
         }
 
         [HttpPost]
@@ -52,15 +49,18 @@ namespace APIGateway.Controllers
                 Password = driver.Password,
                 Role = UserRole.Driver
             };
-            string AddUserUri = $"${Configuration["AuthorizationServiceEndpoint"]}/Users/Add";
-            var response = await HttpRequestClient.PostRequest<object>(AddUserUri, user);
-            if(response != null)
-            {
-                string AddDriverUri = $"${Configuration["DriverServiceEndpoint"]}/Drivers/Add";
-                await HttpRequestClient.PostRequest<object>(AddDriverUri, driver);
-                return Ok();
-            }
-            return BadRequest();
+            string AddUserUri = $"{Configuration["AuthorizationServiceEndpoint"]}/Users/Add";
+            await HttpRequestClient.PostRequest<object>(AddUserUri, user);
+
+            string AddDriverUri = $"{Configuration["DriverServiceEndpoint"]}/Drivers/Add";
+            var response = await HttpRequestClient.PostRequest<AddResponseModel>(AddDriverUri, driver);
+
+            driver.Id = response.Id;
+
+            string AddDriverForOrderMicroserviceUri = $"{Configuration["OrderServiceEndpoint"]}/Drivers/Add";
+            await HttpRequestClient.PostRequest<object>(AddDriverForOrderMicroserviceUri, driver);
+
+            return Ok();
         }
 
         [HttpPost]
@@ -73,22 +73,20 @@ namespace APIGateway.Controllers
                 Password = restaurant.Password,
                 Role = UserRole.Restaurant
             };
-            string AddUserUri = $"${Configuration["AuthorizationServiceEndpoint"]}/Users/Add";
-            var response = await HttpRequestClient.PostRequest<object>(AddUserUri, user);
-            if (response != null)
-            {
+            string AddUserUri = $"{Configuration["AuthorizationServiceEndpoint"]}/Users/Add";
+            await HttpRequestClient.PostRequest<object>(AddUserUri, user);
                 
-                string AddRestaurantUri = $"${Configuration["RestaurantServiceEndpoint"]}/Restaurant/Add";
-                await HttpRequestClient.PostRequest<object>(AddRestaurantUri, restaurant);
+            string AddRestaurantUri = $"{Configuration["RestaurantServiceEndpoint"]}/Restaurant/Add";
+            var response = await HttpRequestClient.PostRequest<AddResponseModel>(AddRestaurantUri, restaurant);
 
-                string AddRestaurantInCustomerServiceUri = $"${Configuration["CusotmerServiceEndpoint"]}/Restaurant/Add";
-                await HttpRequestClient.PostRequest<object>(AddRestaurantInCustomerServiceUri, restaurant);
+            restaurant.Id = response.Id;
 
-                string AddRestaurantInOrderServiceUri = $"${Configuration["OrderServiceEndpoint"]}/Restaurant/Add";
-                await HttpRequestClient.PostRequest<object>(AddRestaurantInOrderServiceUri, restaurant);
-                return Ok();
-            }
-            return BadRequest();
+            string AddRestaurantInCustomerServiceUri = $"{Configuration["CusotmerServiceEndpoint"]}/Restaurant/Add";
+            await HttpRequestClient.PostRequest<object>(AddRestaurantInCustomerServiceUri, restaurant);
+
+            string AddRestaurantInOrderServiceUri = $"{Configuration["OrderServiceEndpoint"]}/Restaurant/Add";
+            await HttpRequestClient.PostRequest<object>(AddRestaurantInOrderServiceUri, restaurant);
+            return Ok();
         }
 
     }

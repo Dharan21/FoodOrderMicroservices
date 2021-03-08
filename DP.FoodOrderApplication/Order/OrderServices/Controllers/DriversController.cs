@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace OrderServices.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class DriversController : ControllerBase
     {
         private IDriverManager driverManager;
@@ -24,7 +26,7 @@ namespace OrderServices.Controllers
             return Ok();
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("Edit")]
         public async Task<IActionResult> Edit(DriverRequestModel driver)
         {
@@ -32,7 +34,7 @@ namespace OrderServices.Controllers
             return Ok();
         }
 
-        [HttpPost]
+        [HttpDelete]
         [Route("Delete/{restaurantId}")]
         public async Task<IActionResult> Delete(int driverId)
         {

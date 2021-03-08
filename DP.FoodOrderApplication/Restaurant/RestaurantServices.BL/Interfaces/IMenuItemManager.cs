@@ -10,7 +10,7 @@ namespace RestaurantServices.BL.Interfaces
     {
         Task<List<MenuItemResponseModel>> GetAll();
         Task<MenuItemResponseModel> Get(int id);
-        Task Add(MenuItemResponseModel menuItem);
+        Task<int> Add(MenuItemResponseModel menuItem);
         Task Update(MenuItemResponseModel menuItem);
         Task Delete(int id);
     }

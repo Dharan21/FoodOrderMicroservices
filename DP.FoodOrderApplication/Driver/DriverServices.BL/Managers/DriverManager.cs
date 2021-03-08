@@ -32,10 +32,10 @@ namespace DriverServices.BL.Managers
             return this._mapper.Map<Driver, DriverResponseModel>(driverEntity);
         }
 
-        public async Task Add(DriverResponseModel driver)
+        public async Task<int> Add(DriverResponseModel driver)
         {
             Driver driverEntity = this._mapper.Map<DriverResponseModel, Driver>(driver);
-            await this._driverRepository.Create(driverEntity);
+            return await this._driverRepository.CreateDriver(driverEntity);
         }
 
         public async Task Update(DriverResponseModel driver)

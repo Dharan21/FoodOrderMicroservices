@@ -39,8 +39,8 @@ namespace RestaurantServices.Controllers
         [Route("Add")]
         public async Task<IActionResult> Add(MenuItemResponseModel menuItem)
         {
-            await _menuItemManager.Add(menuItem);
-            return Ok();
+            int menuItemId = await _menuItemManager.Add(menuItem);
+            return Ok(new { Id = menuItemId});
         }
 
         [HttpPut]

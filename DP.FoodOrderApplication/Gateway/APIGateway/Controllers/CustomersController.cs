@@ -21,13 +21,13 @@ namespace APIGateway.Controllers
         }
 
         [HttpGet]
-        [Route("GetOrders")]
+        [Route("GetOrders/{customerId}")]
         public async Task<IActionResult> GetOrders(int customerId)
         {
-            string GetCustomerUri = $"${Configuration["CusotmerServiceEndpoint"]}/Customers/Get/${customerId}";
+            string GetCustomerUri = $"{Configuration["CusotmerServiceEndpoint"]}/Customers/Get/{customerId}";
             CustomerDetails customerDetails = await HttpRequestClient.GetRequest<CustomerDetails>(GetCustomerUri);
 
-            string GetOrderUri = $"${Configuration["OrderServiceEndpoint"]}/Orders/GetByCustomer/${customerId}";
+            string GetOrderUri = $"{Configuration["OrderServiceEndpoint"]}/Orders/GetByCustomer/{customerId}";
             List<OrderDetails> orderDetails = await HttpRequestClient.GetRequest<List<OrderDetails>>(GetOrderUri);
 
             if (orderDetails == null)
