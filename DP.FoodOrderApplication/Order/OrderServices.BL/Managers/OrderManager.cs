@@ -39,7 +39,7 @@ namespace OrderServices.BL.Managers
             var getCustomerAPI = GetCustomer(order.CustomerId);
             var getRestaurantAPI = GetRestaurant(order.RestaurantId);
             var getMenuItems = GetMenuItems(menuIdsString);
-
+            
             Order orderEntity = this._mapper.Map<OrderRequestModel, Order>(order);
             
             Customer customer = await getCustomerAPI;
@@ -54,7 +54,7 @@ namespace OrderServices.BL.Managers
             order.OrderedItems.ForEach(x =>
             {
                 totalQuantity += x.Quantity;
-                totalPrice += menuItems.First(menuItem => menuItem.Id == x.Id).Price;
+                totalPrice += (menuItems.First(menuItem => menuItem.Id == x.Id).Price * x.Quantity);
             });
             orderEntity.ItemsQuantity = totalQuantity;
             orderEntity.TotalPrice = totalPrice;
@@ -63,12 +63,14 @@ namespace OrderServices.BL.Managers
 
             foreach (OrderItemRequestModel item in order.OrderedItems)
             {
+                MenuItem menuItem = menuItems.FirstOrDefault(x => x.Id == item.Id);
                 OrderDetail orderDetailEntity = new OrderDetail()
                 {
                     OrderId = orderId,
                     OrderedItemId = item.Id,
-                    OrderedItemName = menuItems.FirstOrDefault(x => x.Id == item.Id)?.Name,
-                    Quantity = item.Quantity
+                    OrderedItemName = menuItem != null ? menuItem.Name : string.Empty,
+                    Quantity = item.Quantity,
+                    Price = menuItem != null ? menuItem.Price : 0
                 };
                 await this._orderDetailRepository.Create(orderDetailEntity);
             }
@@ -133,6 +135,9 @@ namespace OrderServices.BL.Managers
                 month = DateTime.UtcNow.Month;
             responseObject.Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month);
             responseObject.RestaurantId = restaurantId;
+
+            var getRestaurantAPI = GetRestaurant(restaurantId);
+
             List<Order> ordersEntity = await this._orderRepository.FindAllAsync(x => x.RestaurantId == restaurantId && x.DateTime.Month == month && x.Status == OrderStatus.Delivered);
             List<int> orderIds = ordersEntity.Select(x => x.Id).ToList();
             List<OrderDetail> orderDetailsEntity = await this._orderDetailRepository.FindAllAsync(x => orderIds.Contains(x.OrderId));
@@ -143,6 +148,10 @@ namespace OrderServices.BL.Managers
                 order.OrderItems = this._mapper.Map<List<OrderDetail>, List<OrderItemResponseModel>>(orderDetails);
             }
             responseObject.DeliveredOrders = orders;
+
+            Restaurant restaurant = await getRestaurantAPI;
+            responseObject.RestaurantName = restaurant.Name;
+
             return responseObject;
         }
 

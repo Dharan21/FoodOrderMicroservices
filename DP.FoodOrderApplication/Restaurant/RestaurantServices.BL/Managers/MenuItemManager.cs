@@ -30,7 +30,7 @@ namespace RestaurantServices.BL.Managers
         public async Task<List<MenuItemResponseModel>> GetAll(string ids)
         {
             List<string> idsArray = ids.Split(",").ToList();
-            List<MenuItem> menuItemsEntity = await this._menuItemRepository.FindAllAsync(x => idsArray.Contains(x.ToString()));
+            List<MenuItem> menuItemsEntity = await this._menuItemRepository.FindAllAsync(x => idsArray.Contains(x.Id.ToString()));
             return this._mapper.Map<List<MenuItem>, List<MenuItemResponseModel>>(menuItemsEntity);
         }
 
