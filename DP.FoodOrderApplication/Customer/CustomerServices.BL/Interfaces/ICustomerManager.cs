@@ -1,4 +1,5 @@
-﻿using CustomerServices.BusinessEntities.ResponseModels;
+﻿using CustomerServices.BusinessEntities.RequestModel;
+using CustomerServices.BusinessEntities.ResponseModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,7 +11,7 @@ namespace CustomerServices.BL.Interfaces
     {
         Task<List<CustomerResponseModel>> GetAll();
         Task<CustomerResponseModel> Get(int id);
-        Task Add(CustomerResponseModel customer);
+        Task Add(AddCustomerRequestModel customer);
         Task Update(CustomerResponseModel customer);
         Task Delete(int id);
     }

@@ -28,6 +28,14 @@ namespace RestaurantServices.Controllers
         }
 
         [HttpGet]
+        [Route("GetAll/{ids}")]
+        public async Task<IActionResult> GetAll(string ids)
+        {
+            var response = await _menuItemManager.GetAll(ids);
+            return Ok(response);
+        }
+
+        [HttpGet]
         [Route("Get/{id}")]
         public async Task<IActionResult> Get(int id)
         {

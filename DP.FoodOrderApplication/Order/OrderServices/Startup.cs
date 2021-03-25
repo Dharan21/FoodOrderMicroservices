@@ -1,4 +1,5 @@
 using AutoMapper;
+using Infrastructure.Common.Constants;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -17,6 +18,7 @@ namespace OrderServices
 {
     public class Startup
     {
+        private const string CORS_POLICY = "AllowRequestOnlyFromGateway";
         public IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration)
         {
@@ -26,6 +28,13 @@ namespace OrderServices
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(CORS_POLICY, policy =>
+                {
+                    policy.WithOrigins(Configuration[Constants.GatewayEndPointKey]).AllowAnyMethod().AllowAnyHeader();
+                });
+            });
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
@@ -46,9 +55,14 @@ namespace OrderServices
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseStaticFiles();
-
             app.UseRouting();
+
+            app.UseCors(CORS_POLICY);
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
 
             app.UseSwagger();
 
@@ -56,13 +70,6 @@ namespace OrderServices
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Order Microservice V1");
                 c.RoutePrefix = String.Empty;
-            });
-
-            app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
             });
         }
     }

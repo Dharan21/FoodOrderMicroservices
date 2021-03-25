@@ -24,25 +24,18 @@ namespace OrderServices.BL.Mapping
                 .ForMember(dest => dest.ItemsQuantity, cfg => cfg.Ignore())
                 .ForMember(dest => dest.TotalPrice, cfg => cfg.Ignore())
                 .ForMember(dest => dest.DriverId, cfg => cfg.Ignore())
+                .ForMember(dest => dest.RestaurantName, cfg => cfg.Ignore())
+                .ForMember(dest => dest.CustomerName, cfg => cfg.Ignore())
+                .ForMember(dest => dest.DriverName, cfg => cfg.Ignore())
                 .ForMember(dest => dest.Status, cfg => cfg.MapFrom(x => OrderStatus.OrderPlaced))
                 .ForMember(dest => dest.DateTime, cfg => cfg.MapFrom(x => DateTime.UtcNow))
                 .ForMember(dest => dest.OrderDetails, cfg => cfg.Ignore())
                 ;
 
-            cfg.CreateMap<RestaurantRequestModel, Restaurant>()
-                .ForMember(dest => dest.RestaurantId, cfg => cfg.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Id, cfg => cfg.Ignore())
+            cfg.CreateMap<OrderDetail, OrderItemResponseModel>()
+                .ForMember(dest => dest.MenuItemName, cfg => cfg.MapFrom(src => src.OrderedItemName))
                 ;
 
-            cfg.CreateMap<DriverRequestModel, Driver>()
-                .ForMember(dest => dest.DriverId, cfg => cfg.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Id, cfg => cfg.Ignore())
-                ;
-
-            cfg.CreateMap<MenuItemRequestModel, MenuItem>()
-                .ForMember(dest => dest.MenuItemId, cfg => cfg.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Id, cfg => cfg.Ignore())
-                ;
         }
     }
 }

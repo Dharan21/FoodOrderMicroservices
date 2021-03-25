@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CustomerServices.BusinessEntities.RequestModel;
 using CustomerServices.BusinessEntities.ResponseModels;
 using CustomerServices.DataEntities.Entities;
 using System;
@@ -12,19 +13,9 @@ namespace CustomerServices.BL.Mapping
         public static void Configure(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<Customer, CustomerResponseModel>().ReverseMap();
-
-            cfg.CreateMap<Restaurant, RestaurantResponseModel>();
-
-            cfg.CreateMap<RestaurantResponseModel, Restaurant>()
-                .ForMember(x => x.RestaurantId, cfg => cfg.MapFrom(src => src.Id))
-                .ForMember(x => x.Id, cfg => cfg.Ignore())
-                ;
-
-            cfg.CreateMap<MenuItem, MenuItemResponseModel>();
-
-            cfg.CreateMap<MenuItemResponseModel, MenuItem>()
-                .ForMember(x => x.MenuItemId, cfg => cfg.MapFrom(src => src.Id))
-                .ForMember(x => x.Id, cfg => cfg.Ignore())
+            
+            cfg.CreateMap<AddCustomerRequestModel, Customer>()
+                .ForMember(dest => dest.Id, cfg => cfg.Ignore())
                 ;
         }
     }

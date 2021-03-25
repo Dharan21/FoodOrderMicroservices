@@ -1,5 +1,6 @@
 using AutoMapper;
 using DriverServices.DataEntities;
+using Infrastructure.Common.Constants;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -17,6 +18,7 @@ namespace DriverServices
 {
     public class Startup
     {
+        private const string CORS_POLICY = "AllowRequestOnlyFromGateway";
         public IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration)
         {
@@ -26,6 +28,13 @@ namespace DriverServices
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(CORS_POLICY, policy =>
+                {
+                    policy.WithOrigins(Configuration[Constants.GatewayEndPointKey]).AllowAnyMethod().AllowAnyHeader();
+                });
+            });
             services.AddControllers();
             services.AddDbContext<DriverDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DriverDb")));
             BL.IocConfig.ConfigureServices(ref services);
@@ -44,9 +53,14 @@ namespace DriverServices
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseStaticFiles();
-
             app.UseRouting();
+
+            app.UseCors(CORS_POLICY);
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
 
             app.UseSwagger();
 
@@ -54,13 +68,6 @@ namespace DriverServices
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Driver Microservice V1");
                 c.RoutePrefix = String.Empty;
-            });
-
-            app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
             });
         }
     }

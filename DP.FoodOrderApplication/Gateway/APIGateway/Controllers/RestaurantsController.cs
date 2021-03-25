@@ -20,37 +20,37 @@ namespace APIGateway.Controllers
             this.Configuration = configuration;
         }
 
-        [HttpPut]
-        [Route("Edit")]
-        public async Task<IActionResult> Edit(Restaurant restaurant)
-        {
-            string EditRestaurantUri = $"{Configuration["RestaurantServiceEndpoint"]}/Restaurant/Edit";
-            await HttpRequestClient.PutRequest<object>(EditRestaurantUri, restaurant);
+        //[HttpPut]
+        //[Route("Edit")]
+        //public async Task<IActionResult> Edit(Restaurant restaurant)
+        //{
+        //    string EditRestaurantUri = $"{Configuration["RestaurantServiceEndpoint"]}/Restaurant/Edit";
+        //    await HttpRequestClient.PutRequest<object>(EditRestaurantUri, restaurant);
 
-            string EditRestaurantForCustomerMicroserviceUri = $"{Configuration["CusotmerServiceEndpoint"]}/Restaurant/Edit";
-            await HttpRequestClient.PutRequest<object>(EditRestaurantForCustomerMicroserviceUri, restaurant);
+        //    string EditRestaurantForCustomerMicroserviceUri = $"{Configuration["CusotmerServiceEndpoint"]}/Restaurant/Edit";
+        //    await HttpRequestClient.PutRequest<object>(EditRestaurantForCustomerMicroserviceUri, restaurant);
 
-            string EditRestaurantForOrderMicroserviceUri = $"{Configuration["OrderServiceEndpoint"]}/Restaurant/Edit";
-            await HttpRequestClient.PutRequest<object>(EditRestaurantForOrderMicroserviceUri, restaurant);
+        //    string EditRestaurantForOrderMicroserviceUri = $"{Configuration["OrderServiceEndpoint"]}/Restaurant/Edit";
+        //    await HttpRequestClient.PutRequest<object>(EditRestaurantForOrderMicroserviceUri, restaurant);
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
-        [HttpPut]
-        [Route("Delete")]
-        public async Task<IActionResult> Delete(int restaurantId)
-        {
-            string DeleteRestaurantUri = $"{Configuration["RestaurantServiceEndpoint"]}/Restaurant/Delete/{restaurantId}";
-            await HttpRequestClient.DeleteRequest<object>(DeleteRestaurantUri);
+        //[HttpPut]
+        //[Route("Delete")]
+        //public async Task<IActionResult> Delete(int restaurantId)
+        //{
+        //    string DeleteRestaurantUri = $"{Configuration["RestaurantServiceEndpoint"]}/Restaurant/Delete/{restaurantId}";
+        //    await HttpRequestClient.DeleteRequest<object>(DeleteRestaurantUri);
 
-            string DeleteRestaurantForCustomerMicroserviceUri = $"{Configuration["CusotmerServiceEndpoint"]}/Restaurant/Delete/{restaurantId}";
-            await HttpRequestClient.DeleteRequest<object>(DeleteRestaurantForCustomerMicroserviceUri);
+        //    string DeleteRestaurantForCustomerMicroserviceUri = $"{Configuration["CusotmerServiceEndpoint"]}/Restaurant/Delete/{restaurantId}";
+        //    await HttpRequestClient.DeleteRequest<object>(DeleteRestaurantForCustomerMicroserviceUri);
 
-            string DeleteRestaurantForOrderMicroserviceUri = $"{Configuration["OrderServiceEndpoint"]}/Restaurant/Delete/{restaurantId}";
-            await HttpRequestClient.DeleteRequest<object>(DeleteRestaurantForOrderMicroserviceUri);
+        //    string DeleteRestaurantForOrderMicroserviceUri = $"{Configuration["OrderServiceEndpoint"]}/Restaurant/Delete/{restaurantId}";
+        //    await HttpRequestClient.DeleteRequest<object>(DeleteRestaurantForOrderMicroserviceUri);
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
     }
 }

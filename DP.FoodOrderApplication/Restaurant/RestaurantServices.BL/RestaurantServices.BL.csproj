@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Infrastructure.Common\Infrastructure.Common.csproj" />
     <ProjectReference Include="..\RestaurantServices.BusinessEntities\RestaurantServices.BusinessEntities.csproj" />
     <ProjectReference Include="..\RestaurantServices.DataEntities\RestaurantServices.DataEntities.csproj" />
     <ProjectReference Include="..\RestaurantServices.DL\RestaurantServices.DL.csproj" />

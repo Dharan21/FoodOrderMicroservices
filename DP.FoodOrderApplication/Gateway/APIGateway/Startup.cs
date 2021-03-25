@@ -29,6 +29,7 @@ namespace APIGateway
             services.AddMvcCore().AddApiExplorer();
             services.AddOcelot();
             services.AddSwaggerForOcelot(Configuration);
+            services.AddCors(options => options.AddDefaultPolicy(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,6 +41,8 @@ namespace APIGateway
             }
 
             app.UseRouting();
+
+            app.UseCors();
 
             //app.UseAuthorizationMiddleware();
 

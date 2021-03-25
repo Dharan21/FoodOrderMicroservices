@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using static Infrastructure.Common.Enumerators.Enumerators;
 
-namespace RestaurantServices.BusinessEntities.RequestModels
+namespace RestaurantServices.BusinessEntities
 {
-    public class RestaurantRequestModel
+    public class User
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Location { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public UserRole Role { get; set; }
     }
 }

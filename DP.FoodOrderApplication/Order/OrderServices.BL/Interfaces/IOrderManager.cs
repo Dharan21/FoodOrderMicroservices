@@ -16,7 +16,7 @@ namespace OrderServices.BL.Interfaces
         Task Delete(int orderId);
         Task<List<OrderResponseModel>> GetByCustomer(int customerId);
         Task<List<OrderResponseModel>> GetByRestaurant(int restaurantId);
-        Task<DriverOrderResponseModel> GetByRestaurant(int restaurantId, int driverId);
+        Task<List<OrderResponseModel>> GetByRestaurant(int restaurantId, int driverId);
         Task<MonthlyReportResponseModel> GenerateMonthlyReport(int restaurantId, int month);
         Task<List<OrderResponseModel>> GetByDriver(int driverId);
     }

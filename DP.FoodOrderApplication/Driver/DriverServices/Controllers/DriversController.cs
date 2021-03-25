@@ -1,4 +1,5 @@
 ﻿using DriverServices.BL.Interfaces;
+using DriverServices.BusinessEntities.RequestModel;
 using DriverServices.BusinessEntities.ResponseModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -37,10 +38,10 @@ namespace DriverServices.Controllers
 
         [HttpPost]
         [Route("Add")]
-        public async Task<IActionResult> Add(DriverResponseModel driver)
+        public async Task<IActionResult> Add(AddDriverRequestModel driver)
         {
-            int driverId = await _driverManager.Add(driver);
-            return Ok(new { Id = driverId });
+            await _driverManager.Add(driver);
+            return Ok();
         }
 
         [HttpPut]

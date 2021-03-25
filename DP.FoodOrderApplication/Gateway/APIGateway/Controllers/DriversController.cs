@@ -17,30 +17,30 @@ namespace APIGateway.Controllers
             this.Configuration = configuration;
         }
 
-        [HttpPut]
-        [Route("Edit")]
-        public async Task<IActionResult> Edit(Driver driver)
-        {
-            string EditDriverUri = $"{Configuration["DriverServiceEndpoint"]}/Drivers/Edit";
-            await HttpRequestClient.PutRequest<object>(EditDriverUri, driver);
+        //[HttpPut]
+        //[Route("Edit")]
+        //public async Task<IActionResult> Edit(Driver driver)
+        //{
+        //    string EditDriverUri = $"{Configuration["DriverServiceEndpoint"]}/Drivers/Edit";
+        //    await HttpRequestClient.PutRequest<object>(EditDriverUri, driver);
 
-            string EditDriverForOrderMicroserviceUri = $"{Configuration["OrderServiceEndpoint"]}/Drivers/Edit";
-            await HttpRequestClient.PutRequest<object>(EditDriverForOrderMicroserviceUri, driver);
+        //    string EditDriverForOrderMicroserviceUri = $"{Configuration["OrderServiceEndpoint"]}/Drivers/Edit";
+        //    await HttpRequestClient.PutRequest<object>(EditDriverForOrderMicroserviceUri, driver);
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
-        [HttpPut]
-        [Route("Delete")]
-        public async Task<IActionResult> Delete(int driverId)
-        {
-            string DeleteDriverUri = $"{Configuration["DriverServiceEndpoint"]}/Drivers/Delete/{driverId}";
-            await HttpRequestClient.DeleteRequest<object>(DeleteDriverUri);
+        //[HttpPut]
+        //[Route("Delete")]
+        //public async Task<IActionResult> Delete(int driverId)
+        //{
+        //    string DeleteDriverUri = $"{Configuration["DriverServiceEndpoint"]}/Drivers/Delete/{driverId}";
+        //    await HttpRequestClient.DeleteRequest<object>(DeleteDriverUri);
 
-            string DeleteDriverForOrderMicroserviceUri = $"{Configuration["OrderServiceEndpoint"]}/Drivers/Delete/{driverId}";
-            await HttpRequestClient.DeleteRequest<object>(DeleteDriverForOrderMicroserviceUri);
+        //    string DeleteDriverForOrderMicroserviceUri = $"{Configuration["OrderServiceEndpoint"]}/Drivers/Delete/{driverId}";
+        //    await HttpRequestClient.DeleteRequest<object>(DeleteDriverForOrderMicroserviceUri);
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
     }
 }

@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Infrastructure.Common\Infrastructure.Common.csproj" />
     <ProjectReference Include="..\DriverServices.BusinessEntities\DriverServices.BusinessEntities.csproj" />
     <ProjectReference Include="..\DriverServices.DataEntities\DriverServices.DataEntities.csproj" />
     <ProjectReference Include="..\DriverServices.DL\DriverServices.DL.csproj" />

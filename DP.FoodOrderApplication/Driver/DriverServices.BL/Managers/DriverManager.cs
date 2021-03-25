@@ -1,8 +1,13 @@
 ﻿using AutoMapper;
 using DriverServices.BL.Interfaces;
+using DriverServices.BusinessEntities;
+using DriverServices.BusinessEntities.RequestModel;
 using DriverServices.BusinessEntities.ResponseModels;
 using DriverServices.DataEntities.Entities;
 using DriverServices.DL.Interfaces;
+using Infrastructure.Common.Constants;
+using Infrastructure.Common.Utility;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,11 +19,13 @@ namespace DriverServices.BL.Managers
     {
         private readonly IDriverRepository _driverRepository;
         private readonly IMapper _mapper;
+        private readonly IConfiguration _configuration;
 
-        public DriverManager(IDriverRepository driverRepository, IMapper mapper)
+        public DriverManager(IDriverRepository driverRepository, IMapper mapper, IConfiguration configuration)
         {
             this._driverRepository = driverRepository;
             this._mapper = mapper;
+            this._configuration = configuration;
         }
         public async Task<List<DriverResponseModel>> GetAll()
         {
@@ -32,10 +39,19 @@ namespace DriverServices.BL.Managers
             return this._mapper.Map<Driver, DriverResponseModel>(driverEntity);
         }
 
-        public async Task<int> Add(DriverResponseModel driver)
+        public async Task Add(AddDriverRequestModel driver)
         {
-            Driver driverEntity = this._mapper.Map<DriverResponseModel, Driver>(driver);
-            return await this._driverRepository.CreateDriver(driverEntity);
+            Driver driverEntity = this._mapper.Map<AddDriverRequestModel, Driver>(driver);
+            await this._driverRepository.Create(driverEntity);
+
+            User user = new User()
+            {
+                Email = driver.Email,
+                Password = driver.Password,
+                Role = Infrastructure.Common.Enumerators.Enumerators.UserRole.Driver
+            };
+            string AddUser = $"{_configuration[Constants.GatewayEndPointKey]}/{Constants.AuthenticationServicesPrefix}/{Constants.AuthenticationServiceUsersController}/{Constants.Add}";
+            await HttpRequestClient.PostRequest<object>(AddUser, user);
         }
 
         public async Task Update(DriverResponseModel driver)

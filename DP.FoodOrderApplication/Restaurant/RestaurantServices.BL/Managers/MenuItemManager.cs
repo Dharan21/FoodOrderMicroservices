@@ -5,6 +5,7 @@ using RestaurantServices.DataEntities.Entities;
 using RestaurantServices.DL.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,6 +24,13 @@ namespace RestaurantServices.BL.Managers
         public async Task<List<MenuItemResponseModel>> GetAll()
         {
             List<MenuItem> menuItemsEntity = await this._menuItemRepository.GetAll();
+            return this._mapper.Map<List<MenuItem>, List<MenuItemResponseModel>>(menuItemsEntity);
+        }
+
+        public async Task<List<MenuItemResponseModel>> GetAll(string ids)
+        {
+            List<string> idsArray = ids.Split(",").ToList();
+            List<MenuItem> menuItemsEntity = await this._menuItemRepository.FindAllAsync(x => idsArray.Contains(x.ToString()));
             return this._mapper.Map<List<MenuItem>, List<MenuItemResponseModel>>(menuItemsEntity);
         }
 

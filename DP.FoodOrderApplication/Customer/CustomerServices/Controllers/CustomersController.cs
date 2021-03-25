@@ -1,5 +1,7 @@
 ﻿using CustomerServices.BL.Interfaces;
+using CustomerServices.BusinessEntities.RequestModel;
 using CustomerServices.BusinessEntities.ResponseModels;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -37,7 +39,7 @@ namespace CustomerServices.Controllers
 
         [HttpPost]
         [Route("Add")]
-        public async Task<IActionResult> Add(CustomerResponseModel customer)
+        public async Task<IActionResult> Add(AddCustomerRequestModel customer)
         {
             await _customerManager.Add(customer);
             return Ok();

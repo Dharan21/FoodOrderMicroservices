@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace APIGateway.Models
+namespace APIAuthentication.Models
 {
     public class AddResponseModel
     {

@@ -13,8 +13,6 @@ namespace CustomerServices.DL
         public static void ConfigureServices(ref IServiceCollection services)
         {
             services.AddScoped<ICustomerRepository, CustomerRepository>();
-            services.AddScoped<IMenuItemRepository, MenuItemRepository>();
-            services.AddScoped<IRestaurantRepository, RestaurantRepository>();
             services.AddScoped<CustomerDbContext, CustomerDbContext>();
         }
     }

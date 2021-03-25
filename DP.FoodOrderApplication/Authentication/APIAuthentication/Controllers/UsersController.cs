@@ -1,11 +1,15 @@
 ﻿using APIAuthentication.Context;
 using APIAuthentication.Models;
+using Infrastructure.Common.Constants;
+using Infrastructure.Common.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static Infrastructure.Common.Enumerators.Enumerators;
 
 namespace APIAuthentication.Controllers
 {
@@ -21,7 +25,7 @@ namespace APIAuthentication.Controllers
 
         [HttpPost]
         [Route("Add")]
-        public async Task<IActionResult> Add(User user)
+        private async Task<IActionResult> AddUser(User user)
         {
             this.context.Users.Add(user);
             await this.context.SaveChangesAsync();

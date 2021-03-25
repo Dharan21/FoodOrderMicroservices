@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DriverServices.BusinessEntities.RequestModel;
 using DriverServices.BusinessEntities.ResponseModels;
 using DriverServices.DataEntities.Entities;
 using System;
@@ -12,6 +13,10 @@ namespace DriverServices.BL.Mapping
         public static void Configure(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<Driver, DriverResponseModel>().ReverseMap();
+
+            cfg.CreateMap<AddDriverRequestModel, Driver>()
+                .ForMember(dest => dest.Id, cfg => cfg.Ignore())
+                ;
         }
     }
 }

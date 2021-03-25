@@ -83,8 +83,7 @@ namespace APIAuthentication.Controllers
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Email,user.Email),
-                new Claim(JwtRegisteredClaimNames.Typ,((int)user.Role).ToString()),
-                new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
+                new Claim(JwtRegisteredClaimNames.Typ,((int)user.Role).ToString())
             };
             var token = new JwtSecurityToken(
                 _configuration["Jwt:Issuer"],

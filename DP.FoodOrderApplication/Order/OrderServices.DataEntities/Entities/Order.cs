@@ -9,8 +9,11 @@ namespace OrderServices.DataEntities.Entities
     {
         public int Id { get; set; }
         public int RestaurantId { get; set; }
+        public string RestaurantName { get; set; }
         public int CustomerId { get; set; }
+        public string CustomerName { get; set; }
         public Nullable<int> DriverId { get; set; }
+        public string DriverName { get; set; }
         public int TotalPrice { get; set; }
         public int ItemsQuantity { get; set; }
         public DateTime DateTime { get; set; }

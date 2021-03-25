@@ -14,7 +14,7 @@ namespace OrderServices.BusinessEntities.ResponseModels
         public int OrderNumber { get; set; }
         public int RestaurantId { get; set; }
         public string RestaurantName { get; set; }
-        //public string CustomerName { get; set; }
+        public string CustomerName { get; set; }
         public Nullable<int> DriverId { get; set; }
         public string DriverName { get; set; }
         public int TotalPrice { get; set; }

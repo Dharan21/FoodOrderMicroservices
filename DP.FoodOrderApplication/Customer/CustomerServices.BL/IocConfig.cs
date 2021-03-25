@@ -12,8 +12,6 @@ namespace CustomerServices.BL
         public static void ConfigureServices(ref IServiceCollection services)
         {
             services.AddScoped<ICustomerManager, CustomerManager>();
-            services.AddScoped<IRestaurantManager, RestaurantManager>();
-            services.AddScoped<IMenuItemManager, MenuItemManager>();
             DL.IocConfig.ConfigureServices(ref services);
         }
     }

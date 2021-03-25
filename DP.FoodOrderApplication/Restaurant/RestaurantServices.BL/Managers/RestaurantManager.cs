@@ -1,5 +1,9 @@
 ﻿using AutoMapper;
+using Infrastructure.Common.Constants;
+using Infrastructure.Common.Utility;
+using Microsoft.Extensions.Configuration;
 using RestaurantServices.BL.Interfaces;
+using RestaurantServices.BusinessEntities;
 using RestaurantServices.BusinessEntities.RequestModels;
 using RestaurantServices.BusinessEntities.ResponseModels;
 using RestaurantServices.DataEntities.Entities;
@@ -15,10 +19,13 @@ namespace RestaurantServices.BL.Managers
     {
         private IRestaurantRepository _restaurantRepository;
         private IMapper _mapper;
-        public RestaurantManager(IRestaurantRepository restaurantRepository, IMapper mapper)
+        private IConfiguration _configuration;
+
+        public RestaurantManager(IRestaurantRepository restaurantRepository, IMapper mapper, IConfiguration configuration)
         {
             this._restaurantRepository = restaurantRepository;
             this._mapper = mapper;
+            this._configuration = configuration;
         }
 
         public async Task<List<RestaurantResponseModel>> GetAll()
@@ -33,10 +40,19 @@ namespace RestaurantServices.BL.Managers
             return this._mapper.Map<Restaurant, RestaurantResponseModel>(restaurantEntity);
         }
 
-        public async Task<int> Add(RestaurantRequestModel restaurant)
+        public async Task Add(RestaurantRequestModel restaurant)
         {
             Restaurant restaurantEntity = this._mapper.Map<RestaurantRequestModel, Restaurant>(restaurant);
-            return await this._restaurantRepository.CreateRestaurant(restaurantEntity);
+            await this._restaurantRepository.Create(restaurantEntity);
+
+            User user = new User()
+            {
+                Email = restaurant.Email,
+                Password = restaurant.Password,
+                Role = Infrastructure.Common.Enumerators.Enumerators.UserRole.Restaurant
+            };
+            string AddUser = $"{_configuration[Constants.GatewayEndPointKey]}/{Constants.AuthenticationServicesPrefix}/{Constants.AuthenticationServiceUsersController}/{Constants.Add}";
+            await HttpRequestClient.PostRequest<object>(AddUser, user);
         }
 
         public async Task Update(RestaurantRequestModel restaurant)
