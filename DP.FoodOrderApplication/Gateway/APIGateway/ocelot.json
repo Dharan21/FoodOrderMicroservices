@@ -12,6 +12,10 @@
       ],
       "UpstreamPathTemplate": "/Customer/{Controller}/{Method}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "TestKey",
+        "AllowedScopes": []
+      },
       "SwaggerKey": "customers"
     },
     {
@@ -25,6 +29,10 @@
       ],
       "UpstreamPathTemplate": "/Customer/{Controller}/{Method}/{Params}",
       "UpstreamHttpMethod": [ "GET", "DELETE" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "TestKey",
+        "AllowedScopes": []
+      },
       "SwaggerKey": "customers"
     },
     // DRIVER
@@ -37,6 +45,10 @@
           "Port": 44346
         }
       ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "TestKey",
+        "AllowedScopes": []
+      },
       "UpstreamPathTemplate": "/Driver/{Controllers}/{Methods}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
       "SwaggerKey": "drivers"
@@ -50,6 +62,10 @@
           "Port": 44346
         }
       ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "TestKey",
+        "AllowedScopes": []
+      },
       "UpstreamPathTemplate": "/Driver/{Controllers}/{Methods}/{Params}",
       "UpstreamHttpMethod": [ "GET", "DELETE" ],
       "SwaggerKey": "drivers"
@@ -64,6 +80,10 @@
           "Port": 44375
         }
       ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "TestKey",
+        "AllowedScopes": []
+      },
       "UpstreamPathTemplate": "/Order/{Controllers}/{Methods}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
       "SwaggerKey": "orders"
@@ -77,6 +97,10 @@
           "Port": 44375
         }
       ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "TestKey",
+        "AllowedScopes": []
+      },
       "UpstreamPathTemplate": "/Order/{Controllers}/{Methods}/{Params}",
       "UpstreamHttpMethod": [ "GET", "DELETE" ],
       "SwaggerKey": "orders"
@@ -91,6 +115,10 @@
           "Port": 44362
         }
       ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "TestKey",
+        "AllowedScopes": []
+      },
       "UpstreamPathTemplate": "/Restaurant/{Controllers}/{Methods}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
       "SwaggerKey": "restaurants"
@@ -104,6 +132,10 @@
           "Port": 44362
         }
       ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "TestKey",
+        "AllowedScopes": []
+      },
       "UpstreamPathTemplate": "/Restaurant/{Controllers}/{Methods}/{Params}",
       "UpstreamHttpMethod": [ "GET", "DELETE" ],
       "SwaggerKey": "restaurants"
@@ -132,6 +164,18 @@
       ],
       "UpstreamPathTemplate": "/Authentication/{Controllers}/{Methods}/{Param}",
       "UpstreamHttpScheme": [ "GET", "DELETE" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/{Url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44345
+        }
+      ],
+      "UpstreamPathTemplate": "/Authentication/{Url}",
+      "UpstreamHttpScheme": [ "GET", "DELETE", "POST", "PUT", "DELETE" ]
     }
   ],
   "GlobalConfiguration": {

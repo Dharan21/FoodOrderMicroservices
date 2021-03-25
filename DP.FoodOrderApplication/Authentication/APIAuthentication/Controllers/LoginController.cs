@@ -28,7 +28,7 @@ namespace APIAuthentication.Controllers
         }
 
         [HttpPost]
-        [Route("Login")]
+        [Route("")]
         public async Task<IActionResult> Login(User user)
         {
             IActionResult response = Unauthorized();
@@ -36,38 +36,9 @@ namespace APIAuthentication.Controllers
             if (authenticatedUser != null)
             {
                 string token = GenerateToken(user);
-                response = Ok(new { token });
+                response = Ok(new { token = token });
             }
             return response;
-        }
-
-        [HttpGet]
-        [Route("ValidateToken")]
-        public bool ValidateToken(string token)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
-            try
-            {
-                tokenHandler.ValidateToken(token, new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
-                    ClockSkew = TimeSpan.Zero
-                }, out SecurityToken validatedToken);
-
-                var jwtToken = (JwtSecurityToken)validatedToken;
-                // return true if validation successful
-                return true;
-            }
-            catch
-            {
-                // return false if validation fails
-                return false;
-            }
         }
 
         private async Task<User> CheckUserAuthetication(User user)
@@ -83,7 +54,7 @@ namespace APIAuthentication.Controllers
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Email,user.Email),
-                new Claim(JwtRegisteredClaimNames.Typ,((int)user.Role).ToString())
+                new Claim("Role",user.Role.ToString())
             };
             var token = new JwtSecurityToken(
                 _configuration["Jwt:Issuer"],
