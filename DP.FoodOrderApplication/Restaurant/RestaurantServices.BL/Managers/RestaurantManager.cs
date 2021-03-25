@@ -57,7 +57,9 @@ namespace RestaurantServices.BL.Managers
 
         public async Task Update(RestaurantRequestModel restaurant)
         {
-            Restaurant restaurantEntity = this._mapper.Map<RestaurantRequestModel, Restaurant>(restaurant);
+            Restaurant restaurantEntity = await this._restaurantRepository.GetById(restaurant.Id);
+            restaurantEntity.Name = restaurant.Name;
+            restaurantEntity.Location = restaurant.Location;
             await this._restaurantRepository.Update(restaurantEntity);
         }
         public async Task Delete(int id)

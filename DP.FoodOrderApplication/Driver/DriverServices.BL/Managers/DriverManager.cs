@@ -56,7 +56,10 @@ namespace DriverServices.BL.Managers
 
         public async Task Update(DriverResponseModel driver)
         {
-            Driver driverEntity = this._mapper.Map<DriverResponseModel, Driver>(driver);
+            Driver driverEntity = await this._driverRepository.GetById(driver.Id);
+            driverEntity.FirstName = driver.FirstName;
+            driverEntity.LastName = driver.LastName;
+            driverEntity.Mobile = driver.Mobile;
             await this._driverRepository.Update(driverEntity);
         }
         public async Task Delete(int id)

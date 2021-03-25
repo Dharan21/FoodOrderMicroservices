@@ -26,7 +26,7 @@ namespace APIGateway
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddMvcCore().AddApiExplorer();
+            //services.AddMvcCore().AddApiExplorer();
             services.AddOcelot();
             services.AddSwaggerForOcelot(Configuration);
             services.AddCors(options => options.AddDefaultPolicy(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));

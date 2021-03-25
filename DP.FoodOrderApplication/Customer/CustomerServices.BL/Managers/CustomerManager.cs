@@ -56,7 +56,11 @@ namespace CustomerServices.BL.Managers
 
         public async Task Update(CustomerResponseModel customer)
         {
-            Customer customerEntity = this._mapper.Map<CustomerResponseModel, Customer>(customer);
+            Customer customerEntity = await this._customerRepository.GetById(customer.Id);
+            customerEntity.FirstName = customer.FirstName;
+            customerEntity.LastName = customer.LastName;
+            customerEntity.Mobile = customer.Mobile;
+            customerEntity.Address = customer.Address;
             await this._customerRepository.Update(customerEntity);
         }
         public async Task Delete(int id)

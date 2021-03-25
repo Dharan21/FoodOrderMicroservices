@@ -32,11 +32,11 @@ namespace APIAuthentication.Controllers
         public async Task<IActionResult> Login(User user)
         {
             IActionResult response = Unauthorized();
-            User authenticatedUser = CheckUserAuthetication(user);
+            User authenticatedUser = await CheckUserAuthetication(user);
             if (authenticatedUser != null)
             {
                 string token = GenerateToken(user);
-                response = Ok(new { token = token });
+                response = Ok(new { token });
             }
             return response;
         }
@@ -70,9 +70,9 @@ namespace APIAuthentication.Controllers
             }
         }
 
-        private User CheckUserAuthetication(User user)
+        private async Task<User> CheckUserAuthetication(User user)
         {
-            User userEntity = context.Users.Where(x => x.Role == user.Role && x.Email == user.Email && x.Password == user.Password).FirstOrDefault();
+            User userEntity = await Task.Run(() => context.Users.Where(x => x.Role == user.Role && x.Email == user.Email && x.Password == user.Password).FirstOrDefault());
             return userEntity;
         }
 
