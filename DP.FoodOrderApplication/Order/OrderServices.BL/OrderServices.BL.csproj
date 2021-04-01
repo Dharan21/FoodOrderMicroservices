@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -6,6 +6,13 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Google.Protobuf" Version="3.15.6" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.36.0" />
+    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.32.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.36.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
   </ItemGroup>
 
@@ -13,6 +20,20 @@
     <ProjectReference Include="..\OrderServices.BusinessEntities\OrderServices.BusinessEntities.csproj" />
     <ProjectReference Include="..\OrderServices.DataEntities\OrderServices.DataEntities.csproj" />
     <ProjectReference Include="..\OrderServices.DL\OrderServices.DL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="..\..\Customer\CustomerGrpcService\Protos\customer.proto" GrpcServices="Client">
+      <Link>Protos\customer.proto</Link>
+    </Protobuf>
+    <!--<Protobuf Include="..\..\Restaurant\RestaurantGrpcService\Protos\menuItem.proto" GrpcServices="Client">
+      <Link>Protos\menuItem.proto</Link>
+    </Protobuf>-->
+    <Protobuf Include="Protos\menuItem.proto" GrpcServices="Client" />
+    <Protobuf Include="Protos\restaurant.proto" GrpcServices="Client" />
+    <!--<Protobuf Include="..\..\Restaurant\RestaurantGrpcService\Protos\restaurant.proto" GrpcServices="Client">
+      <Link>Protos\restaurant.proto</Link>
+    </Protobuf>-->
   </ItemGroup>
 
 </Project>

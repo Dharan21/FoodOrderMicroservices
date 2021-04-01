@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Grpc.Net.Client;
 using Infrastructure.Common.Constants;
 using Infrastructure.Common.Utility;
 using Microsoft.Extensions.Configuration;
@@ -226,14 +227,27 @@ namespace OrderServices.BL.Managers
 
         private async Task<Customer> GetCustomer(int customerId)
         {
-            string getCustomerUri = $"{this._configuration[Constants.GatewayEndPointKey]}/{Constants.CustomerServicesPrefix}/{Constants.CustomerServiceCustomersController}/{Constants.Get}/{customerId}";
-            return await HttpRequestClient.GetRequest<Customer>(getCustomerUri);
+            //string getCustomerUri = $"{this._configuration[Constants.GatewayEndPointKey]}/{Constants.CustomerServicesPrefix}/{Constants.CustomerServiceCustomersController}/{Constants.Get}/{customerId}";
+            //return await HttpRequestClient.GetRequest<Customer>(getCustomerUri);
+
+            var channel = GrpcChannel.ForAddress("https://localhost:5001");
+            var client = new CustomerGrpcService.Protos.CustomerGrpcProtoService.CustomerGrpcProtoServiceClient(channel);
+
+            var customer = await client.GetCustomerAsync(new CustomerGrpcService.Protos.GetCustomerRequest() { CustomerId = customerId });
+
+            return _mapper.Map<Customer>(customer);
         }
 
         private async Task<Restaurant> GetRestaurant(int restautantId)
         {
-            string getRestaurantUri = $"{this._configuration[Constants.GatewayEndPointKey]}/{Constants.RestaurantServicesPrefix}/{Constants.RestaurantServiceRestaurantController}/{Constants.Get}/{restautantId}";
-            return await HttpRequestClient.GetRequest<Restaurant>(getRestaurantUri);
+            //string getRestaurantUri = $"{this._configuration[Constants.GatewayEndPointKey]}/{Constants.RestaurantServicesPrefix}/{Constants.RestaurantServiceRestaurantController}/{Constants.Get}/{restautantId}";
+            //return await HttpRequestClient.GetRequest<Restaurant>(getRestaurantUri);
+
+            var channel = GrpcChannel.ForAddress("https://localhost:6001");
+            var client = new RestaurantGrpcService.Protos.RestaurantProtoService.RestaurantProtoServiceClient(channel);
+
+            var response = await client.GetRestaurantAsync(new RestaurantGrpcService.Protos.GetRestaurantRequestModel { RestaurantId = restautantId });
+            return this._mapper.Map<RestaurantGrpcService.Protos.GetRestaurantResposneModel, Restaurant>(response);
         }
 
         private async Task<Driver> GetDriver(int driverId)
@@ -244,8 +258,14 @@ namespace OrderServices.BL.Managers
 
         private async Task<List<MenuItem>> GetMenuItems(string menuItemIds)
         {
-            string getMenuItemsUri = $"{this._configuration[Constants.GatewayEndPointKey]}/{Constants.RestaurantServicesPrefix}/{Constants.RestaurantServiceMenuItemController}/{Constants.GetAll}/{menuItemIds}";
-            return await HttpRequestClient.GetRequest<List<MenuItem>>(getMenuItemsUri);
+            //string getMenuItemsUri = $"{this._configuration[Constants.GatewayEndPointKey]}/{Constants.RestaurantServicesPrefix}/{Constants.RestaurantServiceMenuItemController}/{Constants.GetAll}/{menuItemIds}";
+            //return await HttpRequestClient.GetRequest<List<MenuItem>>(getMenuItemsUri);
+
+            var channel = GrpcChannel.ForAddress("https://localhost:6001");
+            var client = new RestaurantGrpcService.Protos.MenuItemProtoService.MenuItemProtoServiceClient(channel);
+
+            var response = await client.GetMenuListAsync(new RestaurantGrpcService.Protos.GetMenuListRequest { Ids = menuItemIds });
+            return this._mapper.Map<List<RestaurantGrpcService.Protos.MenuItem>, List<MenuItem>>(response.MenuItems.ToList());
         }
     }
 }

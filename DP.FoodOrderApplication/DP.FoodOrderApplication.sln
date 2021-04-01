@@ -35,35 +35,39 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIGateway", "Gateway\APIGa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIAuthentication", "Authentication\APIAuthentication\APIAuthentication.csproj", "{FE18BD21-879E-4C23-A98A-6E623C80E355}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriverServices", "Driver\DriverServices\DriverServices.csproj", "{4DCD108C-3697-4125-816E-BB346D1FA096}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DriverServices", "Driver\DriverServices\DriverServices.csproj", "{4DCD108C-3697-4125-816E-BB346D1FA096}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriverServices.BL", "Driver\DriverServices.BL\DriverServices.BL.csproj", "{3F91ADB2-DFB1-465E-BF4D-807AB22F0186}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DriverServices.BL", "Driver\DriverServices.BL\DriverServices.BL.csproj", "{3F91ADB2-DFB1-465E-BF4D-807AB22F0186}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriverServices.DL", "Driver\DriverServices.DL\DriverServices.DL.csproj", "{EB6B4327-B074-40CB-9D14-5DB1DC17F45B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DriverServices.DL", "Driver\DriverServices.DL\DriverServices.DL.csproj", "{EB6B4327-B074-40CB-9D14-5DB1DC17F45B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriverServices.BusinessEntities", "Driver\DriverServices.BusinessEntities\DriverServices.BusinessEntities.csproj", "{4E221F37-B0B7-4D11-8E86-3293F40D8E9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DriverServices.BusinessEntities", "Driver\DriverServices.BusinessEntities\DriverServices.BusinessEntities.csproj", "{4E221F37-B0B7-4D11-8E86-3293F40D8E9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriverServices.DataEntities", "Driver\DriverServices.DataEntities\DriverServices.DataEntities.csproj", "{A41FF065-2DD5-45F9-B897-E1C66DD61531}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DriverServices.DataEntities", "Driver\DriverServices.DataEntities\DriverServices.DataEntities.csproj", "{A41FF065-2DD5-45F9-B897-E1C66DD61531}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderServices", "Order\OrderServices\OrderServices.csproj", "{8F95CE30-E36D-4279-96D5-82DE8A6ABA1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderServices", "Order\OrderServices\OrderServices.csproj", "{8F95CE30-E36D-4279-96D5-82DE8A6ABA1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderServices.BL", "Order\OrderServices.BL\OrderServices.BL.csproj", "{E39858A8-98F4-4E7F-B733-E36A0BA1553D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderServices.BL", "Order\OrderServices.BL\OrderServices.BL.csproj", "{E39858A8-98F4-4E7F-B733-E36A0BA1553D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderServices.DL", "Order\OrderServices.DL\OrderServices.DL.csproj", "{41C27ECC-7332-407C-8CB2-295B99A71EC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderServices.DL", "Order\OrderServices.DL\OrderServices.DL.csproj", "{41C27ECC-7332-407C-8CB2-295B99A71EC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderServices.DataEntities", "Order\OrderServices.DataEntities\OrderServices.DataEntities.csproj", "{C0A803C9-3163-488A-B5C8-45E5BD6DEB7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderServices.DataEntities", "Order\OrderServices.DataEntities\OrderServices.DataEntities.csproj", "{C0A803C9-3163-488A-B5C8-45E5BD6DEB7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderServices.BusinessEntities", "Order\OrderServices.BusinessEntities\OrderServices.BusinessEntities.csproj", "{452C877F-39C5-444A-A5B0-82E2DAC808D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderServices.BusinessEntities", "Order\OrderServices.BusinessEntities\OrderServices.BusinessEntities.csproj", "{452C877F-39C5-444A-A5B0-82E2DAC808D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantServices", "Restaurant\RestarantServices\RestaurantServices.csproj", "{DA0F8EF8-FBAA-4051-A12B-25690DBD4F5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantServices", "Restaurant\RestarantServices\RestaurantServices.csproj", "{DA0F8EF8-FBAA-4051-A12B-25690DBD4F5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantServices.BL", "Restaurant\RestaurantServices.BL\RestaurantServices.BL.csproj", "{706FCA1B-CDE6-41FA-9FD1-EC9D21B19DFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantServices.BL", "Restaurant\RestaurantServices.BL\RestaurantServices.BL.csproj", "{706FCA1B-CDE6-41FA-9FD1-EC9D21B19DFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantServices.DL", "Restaurant\RestaurantServices.DL\RestaurantServices.DL.csproj", "{6A48DA55-BCBB-455C-8BDB-1C7CE1D1F357}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantServices.DL", "Restaurant\RestaurantServices.DL\RestaurantServices.DL.csproj", "{6A48DA55-BCBB-455C-8BDB-1C7CE1D1F357}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantServices.BusinessEntities", "Restaurant\RestaurantServices.BusinessEntities\RestaurantServices.BusinessEntities.csproj", "{71633940-81D1-4541-8AAB-5A1A16871EEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantServices.BusinessEntities", "Restaurant\RestaurantServices.BusinessEntities\RestaurantServices.BusinessEntities.csproj", "{71633940-81D1-4541-8AAB-5A1A16871EEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantServices.DataEntities", "Restaurant\RestaurantServices.DataEntities\RestaurantServices.DataEntities.csproj", "{C5CAC8E1-DFEA-4625-843E-5F769121FA6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantServices.DataEntities", "Restaurant\RestaurantServices.DataEntities\RestaurantServices.DataEntities.csproj", "{C5CAC8E1-DFEA-4625-843E-5F769121FA6E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerGrpcService", "Customer\CustomerGrpcService\CustomerGrpcService.csproj", "{7FBEC216-B78F-4B77-B523-BDAA07BB3C2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantGrpcService", "Restaurant\RestaurantGrpcService\RestaurantGrpcService.csproj", "{1D597A8D-39B9-4960-8AF6-81E8E7266DE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -167,6 +171,14 @@ Global
 		{C5CAC8E1-DFEA-4625-843E-5F769121FA6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5CAC8E1-DFEA-4625-843E-5F769121FA6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5CAC8E1-DFEA-4625-843E-5F769121FA6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FBEC216-B78F-4B77-B523-BDAA07BB3C2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FBEC216-B78F-4B77-B523-BDAA07BB3C2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FBEC216-B78F-4B77-B523-BDAA07BB3C2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FBEC216-B78F-4B77-B523-BDAA07BB3C2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D597A8D-39B9-4960-8AF6-81E8E7266DE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D597A8D-39B9-4960-8AF6-81E8E7266DE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D597A8D-39B9-4960-8AF6-81E8E7266DE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D597A8D-39B9-4960-8AF6-81E8E7266DE7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -196,6 +208,8 @@ Global
 		{6A48DA55-BCBB-455C-8BDB-1C7CE1D1F357} = {2EA89B62-AD16-4E46-853A-A9FE2153DDE6}
 		{71633940-81D1-4541-8AAB-5A1A16871EEA} = {2EA89B62-AD16-4E46-853A-A9FE2153DDE6}
 		{C5CAC8E1-DFEA-4625-843E-5F769121FA6E} = {2EA89B62-AD16-4E46-853A-A9FE2153DDE6}
+		{7FBEC216-B78F-4B77-B523-BDAA07BB3C2A} = {ED0F6E25-F8DA-4193-9224-E64E73C13E19}
+		{1D597A8D-39B9-4960-8AF6-81E8E7266DE7} = {2EA89B62-AD16-4E46-853A-A9FE2153DDE6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {454BF701-7D54-44C4-A618-4F230C57C559}

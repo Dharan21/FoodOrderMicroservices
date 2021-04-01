@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option csharp_namespace = "RestaurantGrpcService.Protos";
+
+service MenuItemProtoService {
+	rpc GetMenuList (GetMenuListRequest) returns (GetMenuListResponse);
+}
+
+message GetMenuListRequest {
+	string ids = 1;
+}
+
+message GetMenuListResponse {
+	repeated MenuItem menu_items = 1;
+}
+
+message MenuItem {
+	int32 id = 1;
+	string name = 2;
+	int32 price = 3;
+	bool is_available = 4;
+	int32 restaurant_id = 5;
+}

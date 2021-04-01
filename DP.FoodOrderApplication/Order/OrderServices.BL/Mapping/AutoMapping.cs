@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using OrderServices.BusinessEntities;
 using OrderServices.BusinessEntities.RequestModels;
 using OrderServices.BusinessEntities.ResponseModels;
 using OrderServices.DataEntities.Entities;
@@ -35,6 +36,12 @@ namespace OrderServices.BL.Mapping
             cfg.CreateMap<OrderDetail, OrderItemResponseModel>()
                 .ForMember(dest => dest.MenuItemName, cfg => cfg.MapFrom(src => src.OrderedItemName))
                 ;
+
+            cfg.CreateMap<CustomerGrpcService.Protos.GetCustomerResponse, Customer>();
+            
+            cfg.CreateMap<RestaurantGrpcService.Protos.MenuItem, MenuItem>();
+
+            cfg.CreateMap<RestaurantGrpcService.Protos.GetRestaurantResposneModel, Restaurant>();
 
         }
     }
