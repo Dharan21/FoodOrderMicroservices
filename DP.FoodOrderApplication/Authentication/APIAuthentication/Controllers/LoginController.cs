@@ -1,5 +1,5 @@
-﻿using APIAuthentication.Context;
-using APIAuthentication.Models;
+﻿using APIAuthentication.BL.Interfaces;
+using APIAuthentication.BusinessEntities.RequestModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -19,21 +19,21 @@ namespace APIAuthentication.Controllers
     public class LoginController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private UserDbContext context;
+        private readonly IUserManager userManager;
 
-        public LoginController(IConfiguration configuration, UserDbContext context)
+        public LoginController(IConfiguration configuration, IUserManager userManager)
         {
             this._configuration = configuration;
-            this.context = context;
+            this.userManager = userManager;
         }
 
         [HttpPost]
         [Route("")]
-        public async Task<IActionResult> Login(User user)
+        public async Task<IActionResult> Login(UserRequestModel user)
         {
             IActionResult response = Unauthorized();
-            User authenticatedUser = await CheckUserAuthetication(user);
-            if (authenticatedUser != null)
+            bool isValid = await CheckUserAuthetication(user);
+            if (isValid)
             {
                 string token = GenerateToken(user);
                 response = Ok(new { token = token });
@@ -41,13 +41,12 @@ namespace APIAuthentication.Controllers
             return response;
         }
 
-        private async Task<User> CheckUserAuthetication(User user)
+        private async Task<bool> CheckUserAuthetication(UserRequestModel user)
         {
-            User userEntity = await Task.Run(() => context.Users.Where(x => x.Role == user.Role && x.Email == user.Email && x.Password == user.Password).FirstOrDefault());
-            return userEntity;
+            return await this.userManager.CheckUserCredentials(user);
         }
 
-        private string GenerateToken(User user)
+        private string GenerateToken(UserRequestModel user)
         {
             var SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var credentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256);

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Infrastructure.Repository\Infrastructure.Repository.csproj" />
+    <ProjectReference Include="..\APIAuthentication.DataEntities\APIAuthentication.DataEntities.csproj" />
+  </ItemGroup>
+
+</Project>

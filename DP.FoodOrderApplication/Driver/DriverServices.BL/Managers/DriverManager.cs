@@ -5,6 +5,7 @@ using DriverServices.BusinessEntities.RequestModel;
 using DriverServices.BusinessEntities.ResponseModels;
 using DriverServices.DataEntities.Entities;
 using DriverServices.DL.Interfaces;
+using Grpc.Net.Client;
 using Infrastructure.Common.Constants;
 using Infrastructure.Common.Utility;
 using Microsoft.Extensions.Configuration;
@@ -44,14 +45,19 @@ namespace DriverServices.BL.Managers
             Driver driverEntity = this._mapper.Map<AddDriverRequestModel, Driver>(driver);
             await this._driverRepository.Create(driverEntity);
 
-            User user = new User()
+            var user = new AuthGrpcService.Protos.AddUserRequestModel()
             {
                 Email = driver.Email,
                 Password = driver.Password,
-                Role = Infrastructure.Common.Enumerators.Enumerators.UserRole.Driver
+                Role = AuthGrpcService.Protos.UserRole.Driver
             };
-            string AddUser = $"{_configuration[Constants.GatewayEndPointKey]}/{Constants.AuthenticationServicesPrefix}/{Constants.AuthenticationServiceUsersController}/{Constants.Add}";
-            await HttpRequestClient.PostRequest<object>(AddUser, user);
+            //string AddUser = $"{_configuration[Constants.GatewayEndPointKey]}/{Constants.AuthenticationServicesPrefix}/{Constants.AuthenticationServiceUsersController}/{Constants.Add}";
+            //await HttpRequestClient.PostRequest<object>(AddUser, user);
+
+            var channel = GrpcChannel.ForAddress("https://localhost:8001");
+            var client = new AuthGrpcService.Protos.UserProtoService.UserProtoServiceClient(channel);
+
+            await client.AddUserAsync(user);
         }
 
         public async Task Update(DriverResponseModel driver)

@@ -1,5 +1,5 @@
-﻿using APIAuthentication.Context;
-using APIAuthentication.Models;
+﻿using APIAuthentication.BL.Interfaces;
+using APIAuthentication.BusinessEntities.RequestModel;
 using Infrastructure.Common.Constants;
 using Infrastructure.Common.Utility;
 using Microsoft.AspNetCore.Http;
@@ -17,18 +17,18 @@ namespace APIAuthentication.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private UserDbContext context;
-        public UsersController(UserDbContext context)
+        private readonly IUserManager userManager;
+
+        public UsersController(IUserManager userManager)
         {
-            this.context = context;
+            this.userManager = userManager;
         }
 
         [HttpPost]
         [Route("Add")]
-        private async Task<IActionResult> AddUser(User user)
+        private async Task<IActionResult> Add(UserRequestModel user)
         {
-            this.context.Users.Add(user);
-            await this.context.SaveChangesAsync();
+            await userManager.Add(user);
             return Ok();
         }
     }

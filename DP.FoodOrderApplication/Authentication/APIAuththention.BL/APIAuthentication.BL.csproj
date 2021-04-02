@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\APIAuthentication.BusinessEntities\APIAuthentication.BusinessEntities.csproj" />
+    <ProjectReference Include="..\APIAuthentication.DataEntities\APIAuthentication.DataEntities.csproj" />
+    <ProjectReference Include="..\APIAuthentication.DL\APIAuthentication.DL.csproj" />
+  </ItemGroup>
+
+</Project>

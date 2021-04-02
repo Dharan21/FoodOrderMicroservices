@@ -10,5 +10,9 @@ namespace RestaurantServices.DL.Interfaces
     public interface IRestaurantRepository : IGenericRepository<Restaurant>
     {
         Task<int> CreateRestaurant(Restaurant restaurant);
+
+        new Task<List<Restaurant>> GetAll();
+
+        new Task<Restaurant> GetById(int id);
     }
 }

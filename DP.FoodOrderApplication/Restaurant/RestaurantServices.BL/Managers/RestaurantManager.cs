@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Grpc.Net.Client;
 using Infrastructure.Common.Constants;
 using Infrastructure.Common.Utility;
 using Microsoft.Extensions.Configuration;
@@ -45,14 +46,19 @@ namespace RestaurantServices.BL.Managers
             Restaurant restaurantEntity = this._mapper.Map<RestaurantRequestModel, Restaurant>(restaurant);
             await this._restaurantRepository.Create(restaurantEntity);
 
-            User user = new User()
+            var user = new AuthGrpcService.Protos.AddUserRequestModel()
             {
                 Email = restaurant.Email,
                 Password = restaurant.Password,
-                Role = Infrastructure.Common.Enumerators.Enumerators.UserRole.Restaurant
+                Role = AuthGrpcService.Protos.UserRole.Restaurant
             };
-            string AddUser = $"{_configuration[Constants.GatewayEndPointKey]}/{Constants.AuthenticationServicesPrefix}/{Constants.AuthenticationServiceUsersController}/{Constants.Add}";
-            await HttpRequestClient.PostRequest<object>(AddUser, user);
+            //string AddUser = $"{_configuration[Constants.GatewayEndPointKey]}/{Constants.AuthenticationServicesPrefix}/{Constants.AuthenticationServiceUsersController}/{Constants.Add}";
+            //await HttpRequestClient.PostRequest<object>(AddUser, user);
+
+            var channel = GrpcChannel.ForAddress("https://localhost:8001");
+            var client = new AuthGrpcService.Protos.UserProtoService.UserProtoServiceClient(channel);
+
+            await client.AddUserAsync(user);
         }
 
         public async Task Update(RestaurantRequestModel restaurant)

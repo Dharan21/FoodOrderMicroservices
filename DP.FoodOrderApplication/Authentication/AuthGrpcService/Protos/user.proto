@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option csharp_namespace = "AuthGrpcService.Protos";
+
+import "google/protobuf/Empty.proto";
+
+service UserProtoService {
+	rpc AddUser (AddUserRequestModel) returns (google.protobuf.Empty);
+}
+
+message AddUserRequestModel {
+	string email = 1;
+	string password  = 2;
+	UserRole role = 3;
+}
+
+enum UserRole {
+	None = 0;	
+	Customer = 1;
+	Restaurant = 2;
+	Driver = 3;
+}

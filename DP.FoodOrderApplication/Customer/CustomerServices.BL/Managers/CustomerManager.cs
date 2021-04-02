@@ -5,6 +5,7 @@ using CustomerServices.BusinessEntities.RequestModel;
 using CustomerServices.BusinessEntities.ResponseModels;
 using CustomerServices.DataEntities.Entities;
 using CustomerServices.DL.Interfaces;
+using Grpc.Net.Client;
 using Infrastructure.Common.Constants;
 using Infrastructure.Common.Utility;
 using Microsoft.Extensions.Configuration;
@@ -44,14 +45,20 @@ namespace CustomerServices.BL.Managers
             Customer customerEntity = this._mapper.Map<AddCustomerRequestModel, Customer>(customer);
             await this._customerRepository.Create(customerEntity);
 
-            User user = new User()
+            var user = new AuthGrpcService.Protos.AddUserRequestModel()
             {
                 Email = customer.Email,
                 Password = customer.Password,
-                Role = Infrastructure.Common.Enumerators.Enumerators.UserRole.Customer
+                Role = AuthGrpcService.Protos.UserRole.Customer
             };
-            string AddUser = $"{_configuration[Constants.GatewayEndPointKey]}/{Constants.AuthenticationServicesPrefix}/{Constants.AuthenticationServiceUsersController}/{Constants.Add}";
-            await HttpRequestClient.PostRequest<object>(AddUser, user);
+
+            //string AddUser = $"{_configuration[Constants.GatewayEndPointKey]}/{Constants.AuthenticationServicesPrefix}/{Constants.AuthenticationServiceUsersController}/{Constants.Add}";
+            //await HttpRequestClient.PostRequest<object>(AddUser, user);
+
+            var channel = GrpcChannel.ForAddress("https://localhost:8001");
+            var client = new AuthGrpcService.Protos.UserProtoService.UserProtoServiceClient(channel);
+
+            await client.AddUserAsync(user);
         }
 
         public async Task Update(CustomerResponseModel customer)
