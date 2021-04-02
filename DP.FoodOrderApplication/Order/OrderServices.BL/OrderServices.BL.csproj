@@ -26,6 +26,9 @@
     <Protobuf Include="..\..\Customer\CustomerGrpcService\Protos\customer.proto" GrpcServices="Client">
       <Link>Protos\customer.proto</Link>
     </Protobuf>
+    <Protobuf Include="..\..\Driver\DriverGrpcService\Protos\driver.proto" GrpcServices="Client">
+      <Link>Protos\driver.proto</Link>
+    </Protobuf>
     <!--<Protobuf Include="..\..\Restaurant\RestaurantGrpcService\Protos\menuItem.proto" GrpcServices="Client">
       <Link>Protos\menuItem.proto</Link>
     </Protobuf>-->

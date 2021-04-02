@@ -43,6 +43,8 @@ namespace OrderServices.BL.Mapping
 
             cfg.CreateMap<RestaurantGrpcService.Protos.GetRestaurantResposneModel, Restaurant>();
 
+            cfg.CreateMap<DriverGrpcService.Protos.GetDriverResponseModel, Driver>();
+
         }
     }
 }

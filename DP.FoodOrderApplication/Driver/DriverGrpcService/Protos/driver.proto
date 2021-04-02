@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option csharp_namespace = "DriverGrpcService.Protos";
+
+service DriverProtoService {
+	rpc GetDriver (GetDriverRequestModel) returns (GetDriverResponseModel);
+}
+
+message GetDriverRequestModel {
+	int32 driver_id = 1;
+}
+
+message GetDriverResponseModel {
+	int32 id = 1;
+	string first_name = 2;
+	string last_name = 3;
+	string email = 4;
+	string mobile = 5;
+}

@@ -252,8 +252,15 @@ namespace OrderServices.BL.Managers
 
         private async Task<Driver> GetDriver(int driverId)
         {
-            string getDriverUri = $"{this._configuration[Constants.GatewayEndPointKey]}/{Constants.DriverServicesPrefix}/{Constants.DriverServiceDriversController}/{Constants.Get}/{driverId}";
-            return await HttpRequestClient.GetRequest<Driver>(getDriverUri);
+            //string getDriverUri = $"{this._configuration[Constants.GatewayEndPointKey]}/{Constants.DriverServicesPrefix}/{Constants.DriverServiceDriversController}/{Constants.Get}/{driverId}";
+            //return await HttpRequestClient.GetRequest<Driver>(getDriverUri);
+
+            var channel = GrpcChannel.ForAddress("https://localhost:7001");
+            var client = new DriverGrpcService.Protos.DriverProtoService.DriverProtoServiceClient(channel);
+
+            var response = await client.GetDriverAsync(new DriverGrpcService.Protos.GetDriverRequestModel { DriverId = driverId });
+            return this._mapper.Map<DriverGrpcService.Protos.GetDriverResponseModel, Driver>(response);
+
         }
 
         private async Task<List<MenuItem>> GetMenuItems(string menuItemIds)
