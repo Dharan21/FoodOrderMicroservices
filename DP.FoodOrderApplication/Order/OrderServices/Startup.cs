@@ -71,6 +71,8 @@ namespace OrderServices
             services.AddAuthorization(config =>
             {
                 config.AddPolicy("Customer", policy => policy.RequireRole(Enumerators.UserRole.Customer.ToString()));
+                config.AddPolicy("Driver", policy => policy.RequireRole(Enumerators.UserRole.Driver.ToString()));
+                config.AddPolicy("Restaurant", policy => policy.RequireRole(Enumerators.UserRole.Restaurant.ToString()));
             });
         }
 

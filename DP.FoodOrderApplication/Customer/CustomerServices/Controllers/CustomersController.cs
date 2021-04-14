@@ -24,7 +24,6 @@ namespace CustomerServices.Controllers
 
         [HttpGet]
         [Route("GetAll")]
-        [Authorize(Policy = "Customer")]
         public async Task<IActionResult> GetAll()
         {
             var response = await _customerManager.GetAll();

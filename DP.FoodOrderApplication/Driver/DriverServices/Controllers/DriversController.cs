@@ -1,6 +1,7 @@
 ﻿using DriverServices.BL.Interfaces;
 using DriverServices.BusinessEntities.RequestModel;
 using DriverServices.BusinessEntities.ResponseModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;

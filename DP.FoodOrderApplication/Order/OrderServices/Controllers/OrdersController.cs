@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OrderServices.BL.Interfaces;
 using OrderServices.BusinessEntities.RequestModels;
@@ -29,6 +30,7 @@ namespace OrderServices.Controllers
 
         [HttpGet]
         [Route("GetByCustomer/{customerId}")]
+        [Authorize(Policy = "Customer")]
         public async Task<IActionResult> GetByCustomer(int customerId)
         {
             var orders = await this._orderManager.GetByCustomer(customerId);
@@ -37,6 +39,7 @@ namespace OrderServices.Controllers
 
         [HttpGet]
         [Route("GenerateMonthlyReport/{restaurantId}/{month}")]
+        [Authorize(Policy = "Restaurant")]
         public async Task<IActionResult> GenerateMonthlyReport(int restaurantId, int month = -1)
         {
             var orders = await this._orderManager.GenerateMonthlyReport(restaurantId, month);
@@ -45,6 +48,7 @@ namespace OrderServices.Controllers
 
         [HttpGet]
         [Route("GetByRestaurant/{restaurantId}")]
+        [Authorize(Policy = "Restaurant")]
         public async Task<IActionResult> GetByRestaurant(int restaurantId)
         {
             var orders = await this._orderManager.GetByRestaurant(restaurantId);
@@ -53,6 +57,7 @@ namespace OrderServices.Controllers
 
         [HttpGet]
         [Route("GetByRestaurantAndDriver/{restaurantId}/{driverId}")]
+        [Authorize(Policy = "Restaurant")]
         public async Task<IActionResult> GetByRestaurant(int restaurantId, int driverId)
         {
             var orders = await this._orderManager.GetByRestaurant(restaurantId, driverId);
@@ -60,6 +65,7 @@ namespace OrderServices.Controllers
         }
         [HttpGet]
         [Route("GetByDriver/{driverId}")]
+        [Authorize(Policy = "Driver")]
         public async Task<IActionResult> GetByDriver(int driverId)
         {
             var orders = await this._orderManager.GetByDriver(driverId);
@@ -69,6 +75,7 @@ namespace OrderServices.Controllers
 
         [HttpPost]
         [Route("Add")]
+        [Authorize(Policy = "Customer")]
         public async Task<IActionResult> Add(OrderRequestModel order)
         {
             await this._orderManager.Add(order);
@@ -77,6 +84,7 @@ namespace OrderServices.Controllers
 
         [HttpPut]
         [Route("Edit")]
+        [Authorize(Policy = "Customer")]
         public async Task<IActionResult> Edit(OrderRequestModel order)
         {
             await this._orderManager.Edit(order);
@@ -85,6 +93,7 @@ namespace OrderServices.Controllers
 
         [HttpPut]
         [Route("Delete")]
+        [Authorize(Policy = "Customer")]
         public async Task<IActionResult> Delete(int orderId)
         {
             await this._orderManager.Delete(orderId);
