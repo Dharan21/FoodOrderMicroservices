@@ -1,6 +1,7 @@
 ﻿using CustomerServices.BL.Interfaces;
 using CustomerServices.BusinessEntities.RequestModel;
 using CustomerServices.BusinessEntities.ResponseModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,7 @@ namespace CustomerServices.Controllers
 
         [HttpGet]
         [Route("GetAll")]
+        [Authorize(Policy = "Customer")]
         public async Task<IActionResult> GetAll()
         {
             var response = await _customerManager.GetAll();

@@ -13,6 +13,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Infrastructure.Common.Constants;
 using Microsoft.AspNetCore.Mvc;
+using Infrastructure.Common.Enumerators;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace CustomerServices
 {
@@ -44,6 +48,28 @@ namespace CustomerServices
             {
                 x.SwaggerDoc("v1", new OpenApiInfo { Title = "Customer Microservice", Version = "v1" });
             });
+            services.AddAuthentication(option =>
+            {
+                option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = false,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidAudience = Configuration["Jwt:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])) //Configuration["JwtToken:SecretKey"]  
+                };
+            });
+            services.AddAuthorization(config => 
+            {
+                config.AddPolicy("Customer", policy => policy.RequireRole(Enumerators.UserRole.Customer.ToString()));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +83,10 @@ namespace CustomerServices
             app.UseRouting();
 
             app.UseCors(CORS_POLICY);
+
+            app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

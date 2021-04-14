@@ -52,8 +52,8 @@ namespace APIAuthentication.Controllers
             var credentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256);
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Email,user.Email),
-                new Claim("Role", user.Role.ToString())
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Role, user.Role.ToString())
             };
             var token = new JwtSecurityToken(
                 _configuration["Jwt:Issuer"],
